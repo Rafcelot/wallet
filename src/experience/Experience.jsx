@@ -31,7 +31,7 @@ import { leatherPresets } from '../data/materials.js'
 // COMPONENT
 // ---------------------------
 
-export default function Experience({ setActiveText }) {
+export default function Experience({ setActiveText, setScrollOffset, scrollRef }) {
 
   // ---------------------------
   // REFS
@@ -43,8 +43,13 @@ export default function Experience({ setActiveText }) {
   const currentAnimation = useRef(null)
   const firstCharge = useRef(false)
   const lastText = useRef(null)
+  const smoothProgress = useRef(0)
+  const lastOffset = useRef(0)
+
+
 
   const lightRef = useRef()
+  
 
 
 
@@ -84,7 +89,7 @@ export default function Experience({ setActiveText }) {
   // ---------------------------
 
   // console.log("offset:", scroll.offset)
-  // console.log("page:", (scroll.offset * 5) + 1)
+  // console.log("page:", (scroll.offset * 3) + 1)
 
 
 
@@ -95,21 +100,30 @@ export default function Experience({ setActiveText }) {
   useFrame(() => {
 
     const offset = scroll.offset
-
+    
+    scrollRef.current = offset
 
 
     // ---------------------------
     // TEXTOS DINÁMICOS
     // ---------------------------
 
-    const active = textData.find(
-      (item) => offset > item.min && offset < item.max
-    ) || null
+    // const active = textData.find(
+    //   (item) => offset > item.min && offset < item.max
+    // ) || null
 
-    if (lastText.current !== active?.id) {
-      lastText.current = active?.id
-      setActiveText(active)
+    // if (lastText.current !== active?.id) {
+    //   lastText.current = active?.id
+    //   setActiveText(active)
+    // }
+
+
+    // throttle = solo actualizar el estado cuanda haya un cambio "lo suficientemente grande"
+    if (Math.abs(offset - lastOffset.current) > 0.01) {
+      lastOffset.current = offset
+      setScrollOffset(offset)
     }
+
 
 
 
@@ -143,15 +157,23 @@ export default function Experience({ setActiveText }) {
     // ---------------------------
     // TRANSFORMACIONES (MODEL)
     // ---------------------------
+  const target = scroll.range(0, 0.3)
 
-    const progress = scroll.range(0, 0.3)
+  // magia aquí ↓↓↓
+  smoothProgress.current = THREE.MathUtils.lerp(
+    smoothProgress.current,
+    target,
+    0.08 // prueba entre 0.05 y 0.15
+  )
 
-    const model = modelRef.current?.group?.current
-    if (!model) return
+  const progress = smoothProgress.current
 
-    model.rotation.y = -(progress * Math.PI / 2) + Math.PI / 7
-    model.position.z = progress * -6
-    model.position.x = progress * -2.6
+  const model = modelRef.current?.group?.current
+  if (!model) return
+
+  model.rotation.y = -(progress * Math.PI / 2) + Math.PI / 7
+  model.position.z = progress * -6
+  model.position.x = progress * -2.6
 
   })
 
