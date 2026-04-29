@@ -1,79 +1,268 @@
 .navbar {
-    // background-color: blue;
     position: relative;
     width: 100%;
     z-index: 20;
 
+    /* 🔹 Barra superior */
     &__discount-bar {
-        background-color:rgba(24, 30, 42, 1);
+        background-color: rgba(24, 30, 42, 1);
         color: white;
-
-
+        
         display: flex;
         justify-content: center;
         align-items: center;
         height: 20px;
     }
 
-    &__logo {
-        background-color: teal;
+    /* 🔹 Contenedor principal */
+    &__main {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 48px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
+    /* 🔹 Botón hamburguesa */
+    &__toggle {
+        display: none;
+        height: 48px;
+        width: 48px;
+        background: rgb(0, 255, 64);
+        border: none;
+        cursor: pointer;
+    }
+
+    /* 🔹 Logo */
+    &__logo {
         display: flex;
         justify-content: center;
         align-items: center;
-
         height: 48px;
-
+        background-color: teal;
     }
 
-}
+    /* 🔹 Acciones (derecha) */
+    &__actions {
+        // background-color: red;
 
-.menu-toggle {
-    background: rgb(0, 255, 64);
-    display: none;
-}
-
-
-
-.nav-links {
-    background-color: green;
-
-    display: flex;
-
-
-    gap: 40px;
-    position: fixed;
-    top: 20px;
-    left: 0;
-
-    height: 48px;
-
-    
-
-}
-
-/* MOBILE */
-@media (max-width: 904px) {
-    .menu-toggle {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
 
-    .nav-links {
-        width: 90%;
+    /* 🔹 Links secundarios (desktop) */
+    &__links-secondary {
+        display: flex;      
+        gap: 40px;
+    }
 
+    /* Desktop */
+    &__links-desktop {
+        display: flex;
+        gap: 40px;
+    }
+
+    /* 🔹 Menú desplegable */
+    &__menu {
+        position: fixed;
         top: 0;
+        left: 0;
+        width: 80%;
         height: 100vh;
-        opacity: 0;
 
+        background-color: green;
+
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        padding: 20px;
+
+        /* estado cerrado */
+        opacity: 0;
         transform: translateX(-100%);
         pointer-events: none;
+
         transition: opacity 0.3s ease, transform 0.3s ease;
-        flex-direction: column;
     }
 
-    .nav-links.active {
+    /* 🔹 Estado abierto */
+    &__menu.active {
         opacity: 1;
         transform: translateX(0);
         pointer-events: auto;
     }
+
+    /* 🔹 Botón cerrar */
+    &__close {
+        align-self: flex-start;
+        font-size: 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* 🔹 Links del menú */
+    &__links {
+        background: darkorange;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
 }
+
+
+
+@media (max-width: 904px) {
+
+    .navbar {
+
+        &__toggle {
+            display: block;
+        }
+
+        &__links-secondary {
+            display: none;
+        }
+
+        &__links-desktop {
+            display: none;
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .navbar {
+//     // background-color: blue;
+//     position: relative;
+//     width: 100%;
+//     z-index: 20;
+
+//     &__main{
+//         display: flex;
+//         justify-content: space-between;
+//         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+//     }
+
+//     &__discount-bar {
+//         background-color:rgba(24, 30, 42, 1);
+//         color: white;
+
+
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         height: 20px;
+//     }
+
+//     &__logo {
+//         background-color: teal;
+
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+
+//         height: 48px;
+
+//     }
+
+//     &__actions {
+//         background-color: red;
+//         display: flex;
+
+//         justify-content: center;
+//         align-items: center;
+
+//     }
+
+// }
+
+// .menu__toggle {
+//     background: rgb(0, 255, 64);
+//     display: none;
+//     height: 48px;
+//     width: 48px;
+// }
+
+// .p {
+//     display: flex;
+//     gap: 40px;
+// }
+
+
+
+// .nav-links {
+//     background-color: green;
+
+//     display: flex;
+
+
+//     gap: 40px;
+
+//     position: fixed;
+//     top: 20px;
+//     left: 0;
+
+//     height: 48px;
+
+    
+
+// }
+
+// /* MOBILE */
+// @media (max-width: 904px) {
+//     .menu-toggle {
+//         display: block;
+//     }
+
+//     .nav-links {
+//         width: 90%;
+
+//         top: 0;
+//         height: 100vh;
+//         opacity: 0;
+
+//         transform: translateX(-100%);
+//         pointer-events: none;
+//         transition: opacity 0.3s ease, transform 0.3s ease;
+//         flex-direction: column;
+//     }
+
+//     .nav-links.active {
+//         opacity: 1;
+//         transform: translateX(0);
+//         pointer-events: auto;
+//     }
+
+//     .p {
+//         display: none;
+//     }
+// }
