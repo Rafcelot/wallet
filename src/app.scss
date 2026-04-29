@@ -4,18 +4,15 @@
   width: 100vw;
   // height: 300vh;
   // background-color: pink;
+
 }
 
 
-//Pruebas
 
-.prueba-1 {
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  
-}
-
-.prueba-2 {
-  position: absolute;
+canvas {
+  // background-color: pink;
+  position: fixed;
+  top: 0; 
+  left: 0;
+  outline: none;
 }

@@ -3,8 +3,7 @@
 // ---------------------------
 
 // drei
-import { Environment, useHelper } from '@react-three/drei'
-import { Scroll, useScroll } from '@react-three/drei'
+import { Environment, useHelper, useScroll } from '@react-three/drei'
 
 // fiber
 import { useFrame } from '@react-three/fiber'
@@ -18,12 +17,14 @@ import { DirectionalLightHelper } from 'three'
 
 // models
 import Wallet from './models/Wallet.jsx'
-import TextureTest from './models/TextureTest.jsx'
-import Prueba from './models/Prueba.jsx'
 
 // data
-import { textData } from '../data/textData.js'
 import { leatherPresets } from '../data/materials.js'
+
+// custom hock
+import { useBreakpoint } from '../hooks/useBreakpoint.js'
+import { layoutConfig } from '../data/textData.js'
+
 
 
 
@@ -31,30 +32,42 @@ import { leatherPresets } from '../data/materials.js'
 // COMPONENT
 // ---------------------------
 
-export default function Experience({ setActiveText, setScrollOffset, scrollRef }) {
+export default function Experience({ setActiveText, setScrollOffset }) {
 
   // ---------------------------
   // REFS
   // ---------------------------
 
-  const modelRef = useRef()
-  const scroll = useScroll()
+  const modelRef = useRef()            // referencia al modelo
+  const scroll = useScroll()           // hook de scroll
 
-  const currentAnimation = useRef(null)
-  const firstCharge = useRef(false)
-  const lastText = useRef(null)
-  const smoothProgress = useRef(0)
-  const lastOffset = useRef(0)
+  const currentAnimation = useRef(null) // animación actual
+  const firstCharge = useRef(false)     // control para saber si ya abrió
+  const smoothProgress = useRef(0)      // progreso suavizado (lerp)
+  const lastOffset = useRef(0)          // evitar re-renders innecesarios
 
+  const lightRef = useRef()             // referencia de la luz
 
+  // --------------------
+  // 
+  // ---------------------
 
-  const lightRef = useRef()
+  const { isDesktop } = useBreakpoint()
   
 
+  const currentLayout = isDesktop
+    ? layoutConfig.desktop
+    : layoutConfig.mobile
 
+
+  const modelPosition = currentLayout.model.position
+  const modelScale = currentLayout.model.scale
+  const modelRotation = currentLayout.model.rotation
+
+ 
 
   // ---------------------------
-  // HELPERS (ANIMATIONS)
+  // ANIMATION CONTROLLER
   // ---------------------------
 
   const playAnimation = (name) => {
@@ -68,15 +81,15 @@ export default function Experience({ setActiveText, setScrollOffset, scrollRef }
     const next = actions[name]
     const prev = actions[currentAnimation.current]
 
-    // fade out anterior
+    // fade out de la anterior
     if (prev) prev.fadeOut(0.5)
 
-    // preparar nueva
+    // preparar nueva animación
     next.reset()
     next.setLoop(THREE.LoopOnce)
     next.clampWhenFinished = true
 
-    // reproducir
+    // reproducir con fade
     next.fadeIn(0.5).play()
 
     currentAnimation.current = name
@@ -85,40 +98,20 @@ export default function Experience({ setActiveText, setScrollOffset, scrollRef }
 
 
   // ---------------------------
-  // DEBUG (opcional)
-  // ---------------------------
-
-  // console.log("offset:", scroll.offset)
-  // console.log("page:", (scroll.offset * 3) + 1)
-
-
-
-  // ---------------------------
-  // FRAME LOOP
+  // FRAME LOOP (CORE LOGIC)
   // ---------------------------
 
   useFrame(() => {
 
     const offset = scroll.offset
-    
-    scrollRef.current = offset
+
 
 
     // ---------------------------
-    // TEXTOS DINÁMICOS
+    // [SYS-01] OPTIMIZACIÓN RE-RENDER
     // ---------------------------
 
-    // const active = textData.find(
-    //   (item) => offset > item.min && offset < item.max
-    // ) || null
-
-    // if (lastText.current !== active?.id) {
-    //   lastText.current = active?.id
-    //   setActiveText(active)
-    // }
-
-
-    // throttle = solo actualizar el estado cuanda haya un cambio "lo suficientemente grande"
+    // solo actualiza si el cambio es significativo
     if (Math.abs(offset - lastOffset.current) > 0.01) {
       lastOffset.current = offset
       setScrollOffset(offset)
@@ -127,11 +120,12 @@ export default function Experience({ setActiveText, setScrollOffset, scrollRef }
 
 
 
+
     // ---------------------------
-    // CONTROL DE ANIMACIONES
+    //  CONTROL DE ANIMACIONES
     // ---------------------------
 
-    // detectar si ya pasó por apertura
+    // marcar que ya pasó por apertura
     if (offset >= 0.2) {
       firstCharge.current = true
     }
@@ -148,39 +142,53 @@ export default function Experience({ setActiveText, setScrollOffset, scrollRef }
       nextAnimation = 'close-leather'
     }
 
-    if (nextAnimation && currentAnimation.current !== nextAnimation) {
+    // ejecutar cambio de animación
+    if (nextAnimation) {
       playAnimation(nextAnimation)
     }
 
 
 
     // ---------------------------
-    // TRANSFORMACIONES (MODEL)
+    // [ANIM-01] SMOOTH SCROLL (LERP)
     // ---------------------------
-  const target = scroll.range(0, 0.3)
 
-  // magia aquí ↓↓↓
-  smoothProgress.current = THREE.MathUtils.lerp(
-    smoothProgress.current,
-    target,
-    0.08 // prueba entre 0.05 y 0.15
-  )
+    const target = scroll.range(0, 0.3)
+    
+    smoothProgress.current = THREE.MathUtils.lerp(
+      smoothProgress.current,
+      target,
+      0.08
+    )
 
-  const progress = smoothProgress.current
+    const progress = smoothProgress.current
+    
 
-  const model = modelRef.current?.group?.current
-  if (!model) return
 
-  model.rotation.y = -(progress * Math.PI / 2) + Math.PI / 7
-  model.position.z = progress * -6
-  model.position.x = progress * -2.6
+    // ---------------------------
+    //  TRANSFORM MODEL
+    // ---------------------------
+
+
+    const model = modelRef.current?.group?.current
+    if (!model) return
+
+    model.position.x = modelPosition[0]
+    model.position.y = modelPosition[1]
+    model.position.z = modelPosition[2] + (progress * -6)
+
+   
+
+    model.rotation.y = -(progress * Math.PI / 2) + Math.PI / 7
+    model.position.z = progress * -6
+    // model.position.x = progress * -2.6
 
   })
 
 
 
   // ---------------------------
-  // HELPERS (DEBUG VISUAL)
+  // DEBUG HELPERS
   // ---------------------------
 
   useHelper(lightRef, DirectionalLightHelper, 1)
@@ -193,26 +201,16 @@ export default function Experience({ setActiveText, setScrollOffset, scrollRef }
 
   return (
     <>
-
-      {/* CONTROLS */}
-      {/* <OrbitControls /> */}
-
-      {/* TESTS */}
-      {/* <TextureTest /> */}
-      {/* <Prueba position={[0,-4,1]} /> */}
-
-
-
       {/* MODEL */}
       <Wallet
         ref={modelRef}
         scale={[0.4, 0.4, 0.4]}
-        position={[0, -2, 0]}
-        rotation={[0, Math.PI / 7, 0]}
+        // scale = {modelScale}
+        // position={[0, -2, 0]}
+        // rotation={[0, Math.PI / 6, 0]}
+        rotation={ modelRotation }
         materialConfig={leatherPresets.brown}
       />
-
-
 
       {/* LIGHT */}
       <directionalLight
@@ -221,13 +219,8 @@ export default function Experience({ setActiveText, setScrollOffset, scrollRef }
         intensity={1.5}
       />
 
-
-
       {/* ENVIRONMENT */}
       <Environment preset='lobby' />
-
-      {/* <ambientLight intensity={0.5} /> */}
-
     </>
   )
 }

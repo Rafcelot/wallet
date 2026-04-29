@@ -1,0 +1,27 @@
+@use 'sass:map';
+@use './maps' as *;
+
+//LINEA PARA IMPORTAR 
+// @use '../../../styles/abstracts/functions' as *;
+
+@function get-color($group, $variant) {
+  @return map.get(map.get($colors, $group), $variant);
+}
+ 
+
+// funcion para varios niveles de mapas.
+@function get2-color($key...) {
+  $value: $colors; // Arrancamos siempre desde el mapa raíz - aca se van guardando
+
+  @each $key in $keys {
+    $value: map.get($value, $key); // va recorriendo los niveles del mapa hasya que selecciona el codigo correspondiente.
+  }
+
+  @return $value;
+}
+
+
+// funcion para font-family
+@function font-family($key) {
+  @return map.get($font-families, $key);
+}

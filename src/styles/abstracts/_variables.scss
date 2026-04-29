@@ -1,0 +1,23 @@
+
+
+// @use '../../../styles/abstracts/variables' as *;
+
+// SPACING 
+$space-xs: 8px;
+$space-sm: 16px;
+$space-md: 24px;
+$space-lg: 32px;
+$space-xl: 48px;
+$space-xxl: 80px;
+
+// RADIOS
+$radius-sm: 0.5rem;   // 8px
+$radius-md: 1rem;     // 16px
+$radius-lg: 2rem;     // 32px
+
+// SHADOWWS
+$raised-xs: 0 1px 3px rgba(0, 0, 0, 0.12);
+$raised-sm: 0 4px 6px rgba(0, 0, 0, 0.14);
+$raised-md: 0 5px 15px rgba(0, 0, 0, 0.16);
+$overlay-sm: 0 10px 24px rgba(0, 0, 0, 0.18);
+$overlay-lg: 0 15px 35px rgba(0, 0, 0, 0.2);

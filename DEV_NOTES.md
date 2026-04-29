@@ -157,3 +157,107 @@ Este cambio convierte el texto en un **HUD (Heads-Up Display)**, similar a inter
 * Manejar múltiples capas de UI (ej: indicadores, botones, etc.)
 
 ---
+
+
+
+# Text system
+
+## Opacity System
+
+Se utiliza `useState` para almacenar el valor del scroll y permitir que React actualice el DOM:
+
+```jsx
+export default function App() {
+  const [scrollOffset, setScrollOffset] = useState(0)
+}
+```
+
+# [SYS-01] OPTIMIZACIÓN RE-RENDER
+
+Se usa un **throttle manual** para evitar actualizar el estado en cada frame y reducir la cantidad de re-renders.
+
+```jsx
+const lastOffset = useRef(0)
+
+useFrame(() => {
+  const offset = scroll.offset
+
+  if (Math.abs(offset - lastOffset.current) > 0.01) {
+    lastOffset.current = offset
+    setScrollOffset(offset)
+  }
+})
+
+```
+
+
+---
+
+# Active texts
+
+Se utilizaba `useState` para mostrar **un solo texto activo** según el scroll.
+
+
+```jsx
+export default function App() {
+const [activeText, setActiveText] = useState(null)
+}
+```
+
+leemos la data de los textos los cuales tiene un min y max que sera el rango donde aparecen los textos. 
+
+```jsx
+export default function Experience({ setActiveText, setScrollOffset}) {
+
+  useFrame(() => {
+    
+    const offset = scroll.offset
+   
+    const active = textData.find(
+      (item) => offset > item.min && offset < item.max
+    ) || null
+
+    if (lastText.current !== active?.id) {
+      lastText.current = active?.id
+      setActiveText(active)
+    }
+  })
+}
+```
+
+
+---
+
+
+# [ANIM-01] Smooth Progress (lerp)
+
+Suaviza cambios bruscos del scroll mediante interpolación.
+
+No es un progreso directo, sino un **seguimiento progresivo** hacia un valor objetivo.
+
+
+## 🧠 Idea clave
+
+En lugar de saltar directamente al valor (`target`), el valor actual se **acerca poco a poco** en cada frame.
+
+
+
+## 📐 Fórmula base
+
+new = a + (b - a) * t
+
+
+## 🧩 Implementación en Three.js
+
+```jsx
+smoothProgress.current = THREE.MathUtils.lerp(
+  smoothProgress.current, // valor actual
+  target,                 // valor objetivo
+  0.08                    // velocidad de interpolación
+)
+
+Lerp convierte cambios bruscos en movimiento continuo
+
+
+
+# Por ahora tengo los tres componentes que componen app el navbar los textos y el canvas con position fixed ubicados uno encima del otro y escondi el scroll. 

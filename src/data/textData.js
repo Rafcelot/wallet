@@ -5,29 +5,51 @@
 
 export const textData = [
     {
-        id: 'intro',
+        id: 'alphine',  
 
-        min: 0.2,
-        max: 0.4,
+        fadeInStart: 0,
+        fadeInEnd: 0,
 
-        fadeInStart: 0.3,
-        fadeInEnd: 0.35,
+        visibleStart:0,
+        visibleEnd: 0,
 
-        visibleStart: 0.35,
-        visibleEnd: 0.65,
+        fadeOutStart: 0.1,
+        fadeOutEnd: 0.15,
 
-        fadeOutStart: 0.65,
-        fadeOutEnd: 0.75,
-
-        text: 'Bienvenido a la experiencia',
-        className: 'prueba-1'
+        text: 'Alphine',
+        className: 'alphine-text',
     },
-    // {
-    //     id: 'details',
-    //     min: 0.5,
-    //     max: 0.7,
-    //     text: 'Esta billetera es de cuero premium',
-    //     className: 'prueba-2'
-    // }
+
 
 ]
+
+
+export const layoutConfig = {
+  mobile: {
+    model: {
+      position: [-0.7, -2.3, 0],
+      // scale: [0.4, 0.4, 0.4],
+      rotation: [0, Math.PI / 6, 0],
+    },
+    text: {
+      alphine: {
+        top: '30%',
+        left: 'calc(50% + 50px)'
+      }
+    },
+  },
+
+  desktop: {
+    model: {
+      position: [-2, -2.2, 0],
+      // scale: [0.45, 0.45, 0.45],
+      rotation: [0, Math.PI / 5.5, 0],
+    },
+    text: {
+      alphine: {
+        top: '30%',
+        left: 'calc(50% + 50px)'
+      }
+    },
+  },
+}

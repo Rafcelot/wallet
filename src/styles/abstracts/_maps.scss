@@ -1,0 +1,153 @@
+// lINEA PARA PODER USAR LOS MAPS
+// @use 'sass:map';
+
+
+// GRIDS AND BREAKPOINTS
+
+// Breakpoints Map
+$breakpoints: (
+  sm: 0px,
+  md: 600px,
+  lg: 905px,
+  xl: 1240px,
+  xxl: 1440px,
+  xxxl: 1600px
+);
+
+// Columnas sistema 3 columnas
+$grid-columns: (
+  sm: 16px minmax(0, 1fr) 16px, // "Esta columna puede medir un 1fr, pero permite overflow interno"
+  md: 32px minmax(0, 1fr) 32px,
+  lg: 1fr 840px 1fr,
+  xl: 200px minmax(0, 1fr) 200px,
+  xxl: 1fr 1040px 1fr,
+  xxxl: 1fr 1200px 1fr
+);
+
+// Columnas para breakpoints
+$columns: (
+  sm: 4,
+  md: 8,
+  lg: 12,
+  xl: 12,
+  xxl: 12,
+  xxxl: 12
+);
+
+
+// TYPOGRAPHY MAPS
+
+$headings: (
+  h1: (
+    desktop: (size: 3rem, line: 1.2),
+    mobile:  (size: 1.75rem, line: 1.28),
+    family: 'Lexend',
+    weight: 700,
+    
+  ),
+  h2: (
+    desktop: (size: 2.25rem, line: 1.3),
+    mobile:  (size: 1.5rem, line: 1.33),
+    family: 'Lexend',
+    weight: 700,
+    
+  ),
+  h3: (
+    desktop: (size: 1.75rem, line: 1.4),
+    mobile:  (size: 1.25rem, line: 1.4),
+    family: 'Lexend',
+    weight: 700,
+    
+  )
+);
+
+$font-sizes: (
+  xl: (size: 1.25rem, line: 1.7),   // 20 / 34
+  l: (size: 1rem, line: 1.5),     // 16 / 24
+  m: (size: 0.875rem, line: 1.43), // 14 / 20
+  s: (size: 0.75rem, line: 1.33),  // 12 / 16
+  xs: (size: 0.625rem, line: 1.2)  // 10 / 12
+);
+
+$font-families: (
+  text: 'Urbanist',
+  display: 'Lexend'
+);
+
+$font-weights: (
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700
+);
+
+
+// COLORS MAP
+$colors: (
+
+  // Brand
+  brand: (
+    light: rgba(229, 250, 241, 1),
+    regular: rgba(9, 83, 77, 1),
+    dark: rgba(5, 38, 41, 1)
+  ),
+
+  // Emphasis / Accent
+  emphasis: (
+    light: rgba(243, 229, 250, 1),
+    regular: rgba(174, 60, 236, 1),
+    dark: rgba(59, 25, 76, 1)
+  ),
+
+  // Info
+  info: (
+    light: rgba(225, 240, 254, 1),
+    regular: rgba(46, 119, 184, 1),
+    dark: rgba(31, 80, 122, 1)
+  ),
+
+  // Feedback
+  error: (
+    light: rgba(250, 229, 229, 1),
+    regular: rgba(145, 8, 8, 1),
+    dark: rgba(87, 5, 5, 1)
+  ),
+
+  warning: (
+    light: rgba(255, 237, 221, 1),
+    regular: rgba(203, 77, 26, 1),
+    dark: rgba(138, 48, 14, 1)
+  ),
+
+  success: (
+    light: rgba(220, 247, 212, 1),
+    regular: rgba(66, 122, 31, 1),
+    dark: rgba(35, 48, 3, 1)
+  ),
+
+  // Text
+  text: (
+    primary: rgba(45, 46, 47, 1),
+    secondary: rgba(107, 109, 111, 1),
+    inverse: #ffffff
+  ),
+
+  // Surface
+  surface: (
+    separate: rgba(247, 247, 247, 1),
+    subtle: rgba(240, 240, 240, 1),
+    strong: rgba(230, 230, 230, 1),
+    disabled: rgba(200, 201, 202, 1)
+  ),
+
+  // Border
+  border: (
+    subtle: rgba(200, 201, 202, 1)
+  ),
+
+  // Overlay
+  overlay: (
+    dark: rgba(0, 0, 0, 1)
+  )
+);
+
