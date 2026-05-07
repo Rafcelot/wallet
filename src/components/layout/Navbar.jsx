@@ -1,26 +1,76 @@
-
 import { useState } from "react"
 
 import "./nav-bar.scss"
 
-export default function NavBar () {
+import CartIcon from "@/components/ui/icons/CartIcon/CartIcon.jsx"
+import ArrowDownIcon from "../ui/icons/ArrowDownIcon/ArrowDownIcon"
+
+
+
+
+
+export default function NavBar() {
+
+    // ---------------------------
+    // [STATE]
+    // ---------------------------
 
     const [isOpen, setIsOpen] = useState(false)
+
+    const [openItem, setOpenItem] = useState({})
+
+
+
+
+
+    // ---------------------------
+    // [FUNCTIONS]
+    // ---------------------------
 
     const toggleMenu = () => {
         setIsOpen(prev => !prev)
     }
 
+
+    // ---------------------------
+    // [STATE-01] TOGGLE BY KEY (OBJECT STATE)
+    // ---------------------------
+    const toggleItem = (key) => {
+
+        setOpenItem(prev => ({
+
+            ...prev,
+
+            [key]: !prev[key]
+
+        }))
+    }
+
+
+
+
+
+    // ---------------------------
+    // [JSX]
+    // ---------------------------
+
     return (
+
         <header className="navbar">
 
+            {/* DISCOUNT BAR */}
             <div className="navbar__discount-bar">
-                <p>Envío gratis</p>
+                <p className="text-xs">Envío gratis</p>
             </div>
 
+
+
+
+
+            {/* MAIN NAVBAR */}
             <div className="navbar__main">
 
-                {/* BOTÓN HAMBURGUESA */}
+                {/* HAMBURGER BUTTON */}
                 <button
                     className="navbar__toggle"
                     onClick={toggleMenu}
@@ -28,37 +78,109 @@ export default function NavBar () {
                     ☰
                 </button>
 
-                {/* 👇 LINKS DESKTOP */}
+
+
+
+
+                {/* DESKTOP LINKS */}
                 <ul className="navbar__links-desktop">
-                    <li>Inicio</li>
-                    <li>Servicios</li>
-                    <li>Contacto</li>
+
+                    {/* HOMBRE */}
+                    <li className="navbar__item">
+
+                        <a className="navbar__link">
+
+                            <span>HOMBRE</span>
+
+                            <ArrowDownIcon />
+
+                        </a>
+
+                        <div className="navbar__dropdown">
+                            <ul>
+                                <li>Ropa</li>
+                                <li>Accesorios</li>
+                            </ul>
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    {/* MUJER */}
+                    <li className="navbar__item">
+
+                        <a className="navbar__link">
+
+                            <span>MUJER</span>
+
+                            <ArrowDownIcon />
+
+                        </a>
+
+                        <div className="navbar__dropdown">
+                            <ul>
+                                <li>Otro</li>
+                                <li>Otro</li>
+                            </ul>
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    {/* OFERTAS */}
+                    <li className="navbar__item">
+
+                        <a href="" className="navbar__link">
+                            OFERTAS
+                        </a>
+
+                    </li>
+
                 </ul>
+
+
+
+
 
                 {/* LOGO */}
                 <div className="navbar__logo">
                     Arturo Calle
                 </div>
 
-          
 
-                {/* ACCIONES */}
+
+
+
+                {/* ACTIONS */}
                 <div className="navbar__actions">
+
                     <ul className="navbar__links-secondary">
                         <li>Tiendas</li>
                         <li>Search</li>
                     </ul>
 
                     <div className="navbar__cart">
-                        Carrito
+                        <CartIcon className="icon__cart" />
                     </div>
+
                 </div>
 
             </div>
 
-            {/* MENÚ DESPLEGABLE */}
+
+
+
+
+            {/* MOBILE MENU */}
             <nav className={`navbar__menu ${isOpen ? "active" : ""}`}>
 
+                {/* CLOSE BUTTON */}
                 <button
                     className="navbar__close"
                     onClick={toggleMenu}
@@ -66,10 +188,131 @@ export default function NavBar () {
                     ‹
                 </button>
 
-                <ul className="navbar__links">
-                    <li>Inicio</li>
-                    <li>Servicios</li>
-                    <li>Contacto</li>
+
+
+
+
+                {/* MOBILE LINKS */}
+                <ul className="navbar__links-movil">
+
+                    {/* HOMBRE */}
+                    <li className="navbar__item">
+
+                        {/* LEVEL 1 */}
+                        <button
+                            className="navbar__link"
+                            onClick={() => toggleItem("hombre")}
+                        >
+
+                            <span>HOMBRE</span>
+
+                            <ArrowDownIcon />
+
+                        </button>
+
+
+
+
+
+                        {/* DROPDOWN */}
+                        <div className={`navbar__dropdown ${openItem["hombre"] ? "active" : ""}`}>
+
+                            <ul>
+
+                                <li>
+
+                                    {/* LEVEL 2 */}
+                                    <button
+                                        className="navbar__link"
+                                        onClick={() => toggleItem("hombre-botas")}
+                                    >
+
+                                        <span>Botas</span>
+
+                                        <ArrowDownIcon />
+
+                                    </button>
+
+
+
+
+
+                                    {/* LEVEL 2 DROPDOWN */}
+                                    <div className={`navbar__dropdown ${openItem["hombre-botas"] ? "active" : ""}`}>
+
+                                        <span>Hello</span>
+
+                                    </div>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </li>
+
+
+
+
+
+                    {/* MUJER */}
+                    <li className="navbar__item">
+
+                        {/* LEVEL 1 */}
+                        <button
+                            className="navbar__link"
+                            onClick={() => toggleItem("mujer")}
+                        >
+
+                            <span>MUJER</span>
+
+                            <ArrowDownIcon />
+
+                        </button>
+
+
+
+
+
+                        {/* DROPDOWN */}
+                        <div className={`navbar__dropdown ${openItem["mujer"] ? "active" : ""}`}>
+
+                            <ul>
+
+                                <li>
+
+                                    {/* LEVEL 2 */}
+                                    <button
+                                        className="navbar__link"
+                                        onClick={() => toggleItem("mujer-botas")}
+                                    >
+
+                                        <span>Botas</span>
+
+                                        <ArrowDownIcon />
+
+                                    </button>
+
+
+
+
+
+                                    {/* LEVEL 2 DROPDOWN */}
+                                    <div className={`navbar__dropdown ${openItem["mujer-botas"] ? "active" : ""}`}>
+
+                                        <span>Hello</span>
+
+                                    </div>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </li>
+
                 </ul>
 
             </nav>
@@ -86,86 +329,3 @@ export default function NavBar () {
 
 
 
-// import { useState } from "react"
-
-// import "./nav-bar.scss"
-
-// export default function NavBar () {
-
-//     // estado que controla el menú abierto o cerrado
-//     const [isOpen, setIsOpen] = useState(false)
-
-//     // función para alterar el estado
-//     const toggleMenu = () => {
-//         setIsOpen(!isOpen)
-//     }
-
-//     console.log("menu", isOpen)
-
-//     return (
-//         <div className="navbar">        
-
-//             <div className="navbar__discount-bar">
-//                 <p>Envío gratis</p>
-//             </div>
-
-
-//             <div className="navbar__main">
-
-//                 {/* BOTÓN HAMBURGUESA */}
-//                 <button
-//                     className="menu-toggle"
-//                     onClick={toggleMenu}
-//                 >
-//                     ☰
-//                 </button>
-
-
-//                 {/* LOGO */}
-//                 <div className="navbar__logo">
-//                     Arturo Calle
-//                 </div>    
-
-
-//                 <ul className={`nav-links ${isOpen ? "active" : ""}`}>
-//                     <button 
-//                         onClick={toggleMenu}
-//                         className="menu-toggle"
-//                     >
-//                         ‹
-//                     </button>
-//                         <li>Inicio</li>
-//                         <li>Servicios</li>
-//                         <li>Inicio</li>
-//                 </ul>
-                    
-           
-
-              
-
-//                 <div className="navbar__actions">
-//                     <ul className="p">
-//                         <li>tiendas</li>
-//                         <li>searh</li>
-//                     </ul>
-//                     <div className="navbar__cart">carrito</div>
-//                 </div>
-
-
-//             </div>
-                   
-
-  
-
-        
-
-
-      
-
-
-    
-
-
-//         </div>
-//     )    
-// }

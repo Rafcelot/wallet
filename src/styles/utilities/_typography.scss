@@ -1,0 +1,23 @@
+@use 'sass:map';
+@use '../abstracts/maps' as *;
+
+
+
+// ESTO SE USA DIRECTAMENTE EN HTML O JSX COMO UNA CLASE.
+
+// Sizes
+@each $key, $values in $font-sizes {
+  .text-#{$key} {
+    font-size: map.get($values, size);
+    line-height: map.get($values, line);
+  }
+}
+
+// Family
+@each $name, $family in $font-families {
+  .font-#{$name} {
+    font-family: $family;
+  }
+}
+
+

@@ -2,10 +2,6 @@
 @use "../../styles/abstracts/functions" as *;
 
 
-
-
-
-
 @use 'sass:map';
 
 html,
@@ -66,13 +62,20 @@ button, input, textarea, select {
 
 // Listas sin viñetas o numeración
 ul, ol {
+  
     list-style: none;    // Elimina bullets y números
+    margin: 0;
+    padding: 0;
+   
 }
+
+
 
 // Links sin subrayado y con color heredado
 a {
   text-decoration: none; // Elimina el subrayado por defecto
   color: inherit;        // Hace que el color del link sea igual al del texto del contenedor
+  cursor: pointer;
 }
 
 body {
@@ -80,14 +83,14 @@ body {
 }
 
 p {
-  font-family: font-family(text);   // Usa la fuente definida en el mapa de fuentes
+  // font-family: font-family(text);   // Usa la fuente definida en el mapa de fuentes
   line-height: 1.5rem;
   }
 
 ul {
-  padding-left: 1.5rem;
+  // padding-left: 1.5rem;
   line-height: 24px;
-  padding-bottom: 1.5rem;
+  // padding-bottom: 1.5rem;
 }
 
  li::marker {
@@ -95,8 +98,10 @@ ul {
 }
 
 li {
-  font-family: font-family(text);
-  font-size: 1rem;
-  list-style: disc;
+  // font-family: font-family(display);
+  // font-size: 1rem;
+  list-style: none;
   padding-left: 0.2rem;  
+  padding: 0;
+  margin: 0;
 }

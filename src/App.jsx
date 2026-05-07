@@ -44,7 +44,7 @@ export default function App() {
         }}
       >
 
-        <ScrollControls pages={3}>
+        <ScrollControls pages={3} >
 
           <Experience 
             setScrollOffset={setScrollOffset}  

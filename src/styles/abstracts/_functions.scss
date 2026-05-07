@@ -4,6 +4,8 @@
 //LINEA PARA IMPORTAR 
 // @use '../../../styles/abstracts/functions' as *;
 
+// ESTO SE USA DENTRO DE OTRO ARCHIVO SCSS, EVITA QUE TENTER QUE ESCRIBIR EL DOBLE MAP.
+
 @function get-color($group, $variant) {
   @return map.get(map.get($colors, $group), $variant);
 }
@@ -25,3 +27,10 @@
 @function font-family($key) {
   @return map.get($font-families, $key);
 }
+
+
+// Función para font-size
+@function font($key, $property) {
+  @return map.get(map.get($font-sizes, $key), $property);
+}
+

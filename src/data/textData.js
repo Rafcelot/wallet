@@ -17,7 +17,7 @@ export const textData = [
         fadeOutEnd: 0.15,
 
         text: 'Alphine',
-        className: 'alphine-text',
+        className: ' font-display text-xl',
     },
 
 

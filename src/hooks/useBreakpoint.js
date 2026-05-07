@@ -20,11 +20,3 @@ export function useBreakpoint() {
 
 
 
-// En Three.js (Experience)
-// const { isDesktop } = useBreakpoint()
-
-// const config = isDesktop 
-//   ? layoutConfig.desktop 
-//   : layoutConfig.mobile
-
-// <mesh position={config.model.position} scale={config.model.scale} />

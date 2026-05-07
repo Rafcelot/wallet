@@ -30,7 +30,7 @@ export default function ScrollText() {
 
   return (
     <div className={active.className}>
-      <h1>{active.text}</h1>
+      <p>{active.text}</p>
     </div>
   )
 }

@@ -261,3 +261,165 @@ Lerp convierte cambios bruscos en movimiento continuo
 
 
 # Por ahora tengo los tres componentes que componen app el navbar los textos y el canvas con position fixed ubicados uno encima del otro y escondi el scroll. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [STATE-01] Toggle item by key (object state)
+
+## 🔹 Descripción
+
+Patrón para abrir/cerrar elementos dinámicamente dentro de un objeto usando una key.
+
+---
+
+## 🔹 Implementación
+
+```js
+const toggleItem = (key) => {
+    setOpenItems(prev => ({
+        ...prev,
+        [key]: !prev[key]
+    }))
+}
+```
+
+---
+
+## 🔹 Conceptos clave
+
+### 1. `prev`
+
+* Es el **estado anterior**
+* React lo pasa automáticamente
+* El nombre es arbitrario (`prev`, `old`, etc.)
+
+---
+
+### 2. `...prev`
+
+* Copia todas las propiedades del estado anterior
+* Evita perder datos existentes
+
+```js
+{
+  hombre: true
+}
+```
+
+---
+
+### 3. `[key]` (propiedad dinámica)
+
+* Usa el valor de la variable como nombre de propiedad
+* Crea la propiedad si no existe
+
+```js
+const key = "hombre"
+
+{
+  [key]: true
+}
+
+// Resultado:
+{
+  hombre: true
+}
+```
+
+---
+
+### 4. `prev[key]`
+
+* Accede a una propiedad del objeto usando una variable
+
+```js
+prev["hombre"]
+```
+
+---
+
+### 5. `!prev[key]` (negación lógica)
+
+* Invierte el valor actual
+
+| Valor previo | Resultado |
+| ------------ | --------- |
+| true         | false     |
+| false        | true      |
+| undefined    | true      |
+
+---
+
+## 🔹 Caso importante: propiedad inexistente
+
+```js
+prev = {}
+key = "hombre"
+```
+
+```js
+prev[key] → undefined
+!undefined → true
+```
+
+Resultado:
+
+```js
+{
+  hombre: true
+}
+```
+
+---
+
+## 🔹 Flujo completo
+
+1. Se copia el estado anterior (`...prev`)
+2. Se evalúa `prev[key]`
+3. Se invierte el valor (`!`)
+4. Se actualiza o crea la propiedad
+
+---
+
+## 🔹 Resultado final
+
+```js
+{
+  ...prev,
+  [key]: !prev[key]
+}
+```
+
+👉 Traducción:
+
+> "Mantén lo anterior y cambia (o crea) solo este item, invirtiendo su valor"
+
+---
+
+## 🔹 Uso típico
+
+* Dropdowns (navbar)
+* Acordeones
+* Menús multinivel
+* Toggles dinámicos
+
+---
+
+## 🔹 Nota mental
+
+> "Abre si está cerrado, cierra si está abierto.
+> Si no existe, lo crea en `true`."
+
