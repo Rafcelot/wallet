@@ -1,0 +1,8 @@
+@use "../../../../styles/abstracts/functions" as *;
+
+.icon__hamburguer {
+    // background-color: darkolivegreen;
+    
+    height: 20px;
+    color: get-color(text, primary);
+}

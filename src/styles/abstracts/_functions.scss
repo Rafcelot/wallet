@@ -11,17 +11,6 @@
 }
  
 
-// funcion para varios niveles de mapas.
-@function get2-color($key...) {
-  $value: $colors; // Arrancamos siempre desde el mapa raíz - aca se van guardando
-
-  @each $key in $keys {
-    $value: map.get($value, $key); // va recorriendo los niveles del mapa hasya que selecciona el codigo correspondiente.
-  }
-
-  @return $value;
-}
-
 
 // funcion para font-family
 @function font-family($key) {
@@ -30,7 +19,15 @@
 
 
 // Función para font-size
+// Ejemplo de uso font(xl, size) - font(xl, line)
 @function font($key, $property) {
   @return map.get(map.get($font-sizes, $key), $property);
 }
 
+
+
+
+// Función para pesos
+@function weight($key) {
+  @return map.get($font-weights, $key)
+}

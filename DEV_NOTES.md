@@ -275,6 +275,279 @@ Lerp convierte cambios bruscos en movimiento continuo
 
 
 
+# [ANIM-02] CSS ANIMATIONS
+
+```scss
+.navbar__discount-text {
+    animation: fadeText 0.5s ease;
+}
+```
+
+---
+
+# Estructura de `animation`
+
+```scss
+animation: nombre duración velocidad;
+```
+
+| Valor | Qué hace |
+|---|---|
+| `fadeText` | Nombre de la animación |
+| `0.5s` | Duración |
+| `ease` | Tipo de velocidad |
+
+---
+
+# `fadeText`
+
+```scss
+animation: fadeText 0.5s ease;
+```
+
+`fadeText` NO es una palabra reservada.
+
+Es un nombre personalizado creado por el desarrollador.
+
+Debe coincidir con el nombre definido en `@keyframes`.
+
+---
+
+# ¿Qué es `@keyframes`?
+
+```scss
+@keyframes fadeText {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+```
+
+`@keyframes` define los pasos de una animación.
+
+Es la regla que le dice al navegador:
+
+> "Empieza así y termina así."
+
+---
+
+# `from`
+
+```scss
+from {
+    opacity: 0;
+    transform: translateY(10px);
+}
+```
+
+Estado inicial del elemento.
+
+| Propiedad | Resultado |
+|---|---|
+| `opacity: 0` | Invisible |
+| `translateY(10px)` | 10px más abajo |
+
+---
+
+# `to`
+
+```scss
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+```
+
+Estado final del elemento.
+
+| Propiedad | Resultado |
+|---|---|
+| `opacity: 1` | Visible |
+| `translateY(0)` | Posición original |
+
+---
+
+# Resultado visual
+
+La animación hace que el texto:
+
+- aparezca lentamente
+- mientras sube ligeramente
+
+---
+
+# `ease`
+
+```scss
+animation: fadeText 0.5s ease;
+```
+
+`ease` controla la aceleración de la animación.
+
+Hace que:
+
+- empiece suave
+- acelere en el medio
+- termine suave
+
+---
+
+# Tipos comunes
+
+| Valor | Comportamiento |
+|---|---|
+| `linear` | Velocidad constante |
+| `ease` | Suave al inicio y final |
+| `ease-in` | Empieza lento |
+| `ease-out` | Termina lento |
+| `ease-in-out` | Lento al inicio y final |
+
+---
+
+# Coordenadas en CSS
+
+```text
+(0,0) → X
+  ↓
+  Y
+```
+
+| Dirección | Valor |
+|---|---|
+| Derecha | X positivo |
+| Izquierda | X negativo |
+| Abajo | Y positivo |
+| Arriba | Y negativo |
+
+---
+
+# `translateY(10px)`
+
+```scss
+transform: translateY(10px);
+```
+
+Mueve el elemento:
+
+```text
+10px hacia abajo
+```
+
+---
+
+# `translateY(-10px)`
+
+```scss
+transform: translateY(-10px);
+```
+
+Mueve el elemento:
+
+```text
+10px hacia arriba
+```
+
+---
+
+# Equivalente completo de `animation`
+
+```scss
+animation: fadeText 0.5s ease;
+```
+
+equivale a:
+
+```scss
+animation-name: fadeText;
+
+animation-duration: 0.5s;
+
+animation-timing-function: ease;
+```
+
+---
+
+# Flujo completo de la animación
+
+## 1. El elemento aparece
+
+El navegador detecta:
+
+```scss
+animation: fadeText 0.5s ease;
+```
+
+---
+
+## 2. Busca el nombre de la animación
+
+```scss
+@keyframes fadeText
+```
+
+---
+
+## 3. Lee el estado inicial
+
+```scss
+from
+```
+
+---
+
+## 4. Lee el estado final
+
+```scss
+to
+```
+
+---
+
+## 5. Interpola los valores
+
+CSS calcula automáticamente:
+
+```text
+opacity: 0 → 1
+translateY(10px) → 0
+```
+
+---
+
+## 6. Ejecuta la transición
+
+Durante:
+
+```scss
+0.5s
+```
+
+usando:
+
+```scss
+ease
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # [STATE-01] Toggle item by key (object state)
@@ -423,3 +696,80 @@ Resultado:
 > "Abre si está cerrado, cierra si está abierto.
 > Si no existe, lo crea en `true`."
 
+
+
+
+
+
+
+
+
+# [EFFECT-01] Auto change text interval
+
+## 1. Create interval
+
+```js
+const interval = setInterval(() => {
+```
+
+### What is `setInterval()`?
+
+`setInterval()` executes a function repeatedly after a specific amount of time.
+
+It is a built-in JavaScript function.
+
+---
+
+## 2. Update state index
+
+```js
+setCurrentIndex((prevIndex) =>
+```
+
+### What is `prevIndex`?
+
+`prevIndex` represents the previous state value.
+
+React automatically passes the current state value as the first parameter.
+
+---
+
+## 3. Modulo operator `%`
+
+```js
+(prevIndex + 1) % discountMessages.length
+```
+
+The `%` operator returns the remainder of a division.
+
+Example:
+
+```js
+1 % 2
+```
+
+- How many times does 2 fit into 1?
+  → 0 times
+
+- How much is left to reach 1?
+  → 1
+
+Result:
+
+```js
+1 % 2 = 1
+```
+
+---
+
+## 4. Cleanup interval
+
+```js
+return () => clearInterval(interval)
+```
+
+### What does `clearInterval()` do?
+
+`clearInterval()` stops or removes the interval created with `setInterval()`.
+
+This prevents memory leaks and unnecessary executions when the component unmounts.

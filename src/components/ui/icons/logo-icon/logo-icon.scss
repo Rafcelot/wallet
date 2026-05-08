@@ -1,0 +1,15 @@
+.icon__logo {
+    // background-color: pink;
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    height: 32px;
+}
+
+@media (max-width: 904px) {
+    .icon__logo{
+        height: 20px;
+    }
+}

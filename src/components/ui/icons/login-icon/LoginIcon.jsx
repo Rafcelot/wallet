@@ -1,0 +1,32 @@
+export default function UserIcon({ className = "" }) {
+    return (
+
+        <svg
+            className={className}
+            // width="16"
+            // height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+
+            <path
+                d="M0.500122 15.4995C0.500122 15.4995 1.65606 11.7495 8.00012 11.7495C14.3442 11.7495 15.5001 15.4995 15.5001 15.4995"
+                stroke="#2D2E2F"
+                strokeMiterlimit="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+
+            <path
+                d="M7.53137 8.937C9.86132 8.937 11.7501 7.0482 11.7501 4.71825C11.7501 2.3883 9.86132 0.4995 7.53137 0.4995C5.20142 0.4995 3.31262 2.3883 3.31262 4.71825C3.31262 7.0482 5.20142 8.937 7.53137 8.937Z"
+                stroke="#2D2E2F"
+                strokeWidth="0.999"
+                strokeMiterlimit="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+
+        </svg>
+    )
+}

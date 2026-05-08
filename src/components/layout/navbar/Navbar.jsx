@@ -3,7 +3,14 @@ import { useState } from "react"
 import "./nav-bar.scss"
 
 import CartIcon from "@/components/ui/icons/CartIcon/CartIcon.jsx"
-import ArrowDownIcon from "../ui/icons/ArrowDownIcon/ArrowDownIcon"
+import ArrowDownIcon from "../../ui/icons/ArrowDownIcon/ArrowDownIcon"
+import DiscountBar from "./discount-bar/DiscountBar"
+
+import LogoIcon from "../../ui/icons/logo-icon/LogoIcon"
+import SearchIcon from "../../ui/icons/search-icon/SearchIcon"
+import LoginIcon from "../../ui/icons/login-icon/LoginIcon"
+import HamburguerIcon from "../../ui/icons/hamburguer-icon/HamburguerIcon"
+
 
 
 
@@ -59,9 +66,7 @@ export default function NavBar() {
         <header className="navbar">
 
             {/* DISCOUNT BAR */}
-            <div className="navbar__discount-bar">
-                <p className="text-xs">Envío gratis</p>
-            </div>
+            <DiscountBar />
 
 
 
@@ -75,7 +80,7 @@ export default function NavBar() {
                     className="navbar__toggle"
                     onClick={toggleMenu}
                 >
-                    ☰
+                    <HamburguerIcon className="icon__hamburguer" />
                 </button>
 
 
@@ -136,7 +141,7 @@ export default function NavBar() {
                     {/* OFERTAS */}
                     <li className="navbar__item">
 
-                        <a href="" className="navbar__link">
+                        <a href="" className="navbar__link navbar__oferta">
                             OFERTAS
                         </a>
 
@@ -148,10 +153,9 @@ export default function NavBar() {
 
 
 
-                {/* LOGO */}
-                <div className="navbar__logo">
-                    Arturo Calle
-                </div>
+                {/* LOGO */}                
+                <LogoIcon className="icon__logo" />
+              
 
 
 
@@ -160,14 +164,21 @@ export default function NavBar() {
                 {/* ACTIONS */}
                 <div className="navbar__actions">
 
-                    <ul className="navbar__links-secondary">
-                        <li>Tiendas</li>
-                        <li>Search</li>
-                    </ul>
+                    <a href="#" className="navbar__links-secondary">
+                        TIENDAS
+                    </a>
 
-                    <div className="navbar__cart">
+                    <a href="#" className="navbar__icons navbar__links-secondary">
+                        <SearchIcon className="icon__search" />
+                    </a>
+
+                    <a href="#" className="navbar__icons navbar__links-secondary">
+                        <LoginIcon className="icon__login" />
+                    </a>
+
+                    <a href="#" className="navbar__icons">
                         <CartIcon className="icon__cart" />
-                    </div>
+                    </a>
 
                 </div>
 

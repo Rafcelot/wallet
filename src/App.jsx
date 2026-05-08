@@ -7,7 +7,7 @@ import { useState } from 'react'
 import './app.scss'
 import { textData } from './data/textData.js'
 // import NavBar from "./components/layout/Navbar.jsx"
-import NavBar from "@/components/layout/Navbar.jsx"
+import NavBar from "@/components/layout/navbar/Navbar.jsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint.js"
 
 export default function App() {

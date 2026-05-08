@@ -1,0 +1,51 @@
+@use '../../../../styles/abstracts/functions' as *;
+
+.navbar__discount-bar {
+    overflow: hidden;
+
+    // background-color: red;
+    background-color: get-color(brand, dark);
+    color: white;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+
+    //Texts
+    font-family: font-family(display);
+    letter-spacing: 0.05em;
+    font-size: font(xs, size);
+    line-height: font(xs, line);
+}
+
+// [ANIM-02] CSS ANIMATAION
+.navbar__discount-text {
+    animation: fadeText 0.5s ease;
+    // background-color: firebrick;
+}
+
+// // ---------------------------
+// // ANIMATION
+// // ---------------------------
+@keyframes fadeText {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.navbar__discount-link {
+
+    margin-left: 4px;
+
+    text-decoration: underline;
+
+}

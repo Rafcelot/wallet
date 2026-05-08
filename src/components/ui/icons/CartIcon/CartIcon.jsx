@@ -13,7 +13,7 @@ export default function CartIcon({ className }) {
             <path
                 d="M6.01748 4.25C6.01748 4.25 5.40342 0.5 8.82998 0.5C12.2565 0.5 11.6425 4.25 11.6425 4.25"
                 stroke="currentColor"
-                strokeWidth="1.5"
+                strokeWidth="1"
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />
@@ -21,7 +21,7 @@ export default function CartIcon({ className }) {
             <path
                 d="M2.87029 4.25C1.99935 4.25 1.27473 4.91744 1.20254 5.78557C1.01785 7.99994 0.679422 12.0556 0.504109 14.1575C0.475984 14.5025 0.593144 14.8447 0.827519 15.0997C1.06283 15.3547 1.39285 15.5 1.73973 15.5C4.90004 15.5 12.76 15.5 15.9203 15.5C16.2672 15.5 16.5972 15.3547 16.8325 15.0997C17.0669 14.8447 17.1841 14.5025 17.1559 14.1575C16.9806 12.0556 16.6422 7.99994 16.4575 5.78557C16.3853 4.91744 15.6607 4.25 14.7898 4.25C11.9116 4.25 5.74841 4.25 2.87029 4.25Z"
                 stroke="currentColor"
-                strokeWidth="1.5"
+                strokeWidth="1"
                 strokeLinecap="round"
                 strokeLinejoin="round"
             />

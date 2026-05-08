@@ -1,7 +1,7 @@
 @use 'sass:map';
 
-@use '../../styles/abstracts/maps' as *;
-@use "../../styles/abstracts/functions" as *;
+@use '../../../styles/abstracts/maps' as *;
+@use "../../../styles/abstracts/functions" as *;
 
 
 
@@ -12,16 +12,7 @@
     width: 100%;
     z-index: 20;
 
-    /* 🔹 Barra superior */
-    &__discount-bar {
-        background-color: rgba(24, 30, 42, 1);
-        color: white;
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 20px;
-    }
+
 
     /* 🔹 Contenedor principal */
     &__main {
@@ -30,34 +21,21 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 48px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        height: 80px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
 
     /* 🔹 Botón hamburguesa */
     &__toggle {
         display: none;
+
+        
+
         height: 48px;
         width: 48px;
-        background: rgb(0, 255, 64);
+        // background: rgb(0, 255, 64);
         border: none;
         cursor: pointer;
-        
-    }
-
-    /* 🔹 Logo */
-    &__logo {
-        // background-color: teal;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 48px;
-        width: 100px;
-        
-        position: absolute;
-        left: calc(50% - 50px)
-        
         
     }
 
@@ -66,14 +44,34 @@
         // background-color: red;
 
         display: flex;
+        margin-right: 24px;
+
+        
         align-items: center;
-        gap: 20px;
+        gap: 8px;
+
+        //TEXT
+        font-family: font-family(display);
+        font-size: font(s, size);
+        line-height: font(s, line);
+        font-weight: weight(semibold);
+    }
+
+    &__icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 48px;
+    aspect-ratio: 1 / 1;    
     }
 
     /* 🔹 Links secundarios (desktop) */
     &__links-secondary {
         display: flex;      
-        gap: 40px;
+        margin-right: 24px;
+        height: 20px;
+        color: get-color(text, primary);
     }
 
     /* Desktop */
@@ -82,7 +80,7 @@
 
         display: flex;
         margin-left: 24px;
-        gap: 24px;
+        gap: 0px;
 
         font-family: font-family(display);
         font-size: font(s, size);
@@ -90,7 +88,7 @@
     }
 
     &__link {
-        background-color: rgb(222, 222, 255);
+        // background-color: rgb(222, 222, 255);
         
         display: flex;
         align-items: center;
@@ -100,6 +98,16 @@
         height: 48px;
 
         position: relative;
+
+        //TEXT
+        font-family: font-family(display);
+        font-size: font(s, size);
+        line-height: font(s, line);
+        font-weight: weight(semibold);
+    }
+
+    &__oferta{
+        color: get-color(emphasis, regular);
     }
 
     // Este es el dropdown para movil 
@@ -108,7 +116,6 @@
 
         display: none;
         width: 100%;
-      
     }   
 
     &__dropdown.active {
@@ -116,7 +123,6 @@
     }
 
   
-
     /* 🔹 Menú desplegable */
     &__menu {
         background-color: rgb(226, 226, 226);
@@ -177,6 +183,7 @@
         position: absolute;
         top: 100%;
         left: 40px; 
+        
     }
 }
 
@@ -187,7 +194,13 @@
     .navbar {
 
         &__toggle {
-            display: block;
+            // background-color: rgb(113, 86, 31);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;   
+            
+            margin-left: 8px;
         }
 
         &__links-secondary {
@@ -196,6 +209,10 @@
 
         &__links-desktop {
             display: none;
+        }
+
+        &__actions {
+            margin-right: 8px;
         }
 
     }
@@ -223,114 +240,3 @@
 
 
 
-
-
-
-
-
-// .navbar {
-//     // background-color: blue;
-//     position: relative;
-//     width: 100%;
-//     z-index: 20;
-
-//     &__main{
-//         display: flex;
-//         justify-content: space-between;
-//         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-//     }
-
-//     &__discount-bar {
-//         background-color:rgba(24, 30, 42, 1);
-//         color: white;
-
-
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-//         height: 20px;
-//     }
-
-//     &__logo {
-//         background-color: teal;
-
-//         display: flex;
-//         justify-content: center;
-//         align-items: center;
-
-//         height: 48px;
-
-//     }
-
-//     &__actions {
-//         background-color: red;
-//         display: flex;
-
-//         justify-content: center;
-//         align-items: center;
-
-//     }
-
-// }
-
-// .menu__toggle {
-//     background: rgb(0, 255, 64);
-//     display: none;
-//     height: 48px;
-//     width: 48px;
-// }
-
-// .p {
-//     display: flex;
-//     gap: 40px;
-// }
-
-
-
-// .nav-links {
-//     background-color: green;
-
-//     display: flex;
-
-
-//     gap: 40px;
-
-//     position: fixed;
-//     top: 20px;
-//     left: 0;
-
-//     height: 48px;
-
-    
-
-// }
-
-// /* MOBILE */
-// @media (max-width: 904px) {
-//     .menu-toggle {
-//         display: block;
-//     }
-
-//     .nav-links {
-//         width: 90%;
-
-//         top: 0;
-//         height: 100vh;
-//         opacity: 0;
-
-//         transform: translateX(-100%);
-//         pointer-events: none;
-//         transition: opacity 0.3s ease, transform 0.3s ease;
-//         flex-direction: column;
-//     }
-
-//     .nav-links.active {
-//         opacity: 1;
-//         transform: translateX(0);
-//         pointer-events: auto;
-//     }
-
-//     .p {
-//         display: none;
-//     }
-// }
