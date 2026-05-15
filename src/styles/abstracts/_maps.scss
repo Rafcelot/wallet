@@ -31,15 +31,15 @@ $headings: (
 );
 
 $font-sizes: (
-  xl: (size: 1.25rem, line: 1.7),   // 20 / 34
-  l: (size: 1rem, line: 1.5),     // 16 / 24
-  m: (size: 0.875rem, line: 1.43), // 14 / 20
-  s: (size: 0.75rem, line: 1.33),  // 12 / 16
-  xs: (size: 0.625rem, line: 1.2)  // 10 / 12
+  xl: (size: 1.25rem, line: 1.7rem),   // 20 / 34
+  l: (size: 1rem, line: 1.5rem),     // 16 / 24
+  m: (size: 0.875rem, line: 1.43rem), // 14 / 20
+  s: (size: 0.75rem, line: 1.33rem),  // 12 / 16
+  xs: (size: 0.625rem, line: 1.2rem)  // 10 / 12
 );
 
 $font-families: (
-  text: 'Urbanist',
+  text: 'Source Sans 3',
   display: 'Montserrat',  
 );
 

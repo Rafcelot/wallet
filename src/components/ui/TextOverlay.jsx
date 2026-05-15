@@ -25,7 +25,7 @@ export default function TextOverlay({ scrollOffset, textData }) {
         const opacity = getOpacity(scrollOffset, item)
 
         const position = currentLayout.text[item.id];
- 
+        console.log(position, "position")
 
 
         return (
@@ -37,10 +37,11 @@ export default function TextOverlay({ scrollOffset, textData }) {
               top: position.top,
               left: position.left,
               opacity: opacity,
-              pointerEvents: 'none'
+              pointerEvents: 'none',
+              
             }}
           >
-            <p>{item.text}</p>
+            <h1>{item.text}</h1>
           </div>
         )
       })}

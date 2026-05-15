@@ -1,12 +1,12 @@
 # DEV NOTES
 
-## 📌 Project Context
+##  Project Context
 
 Este proyecto utiliza **React Three Fiber** junto con **ScrollControls** para manejar animaciones 3D basadas en scroll y mostrar contenido dinámico en pantalla.
 
 ---
 
-## 🧠 Fixed UI Text vs Scroll HTML
+##  Fixed UI Text vs Scroll HTML
 
 ### Problema
 
@@ -20,7 +20,7 @@ Inicialmente los textos dinámicos (`currentText`) estaban dentro de `<Scroll ht
 </Scroll>
 ```
 
-#### ❌ Comportamiento no deseado:
+####  Comportamiento no deseado:
 
 * El texto se mueve con el scroll
 * No funciona como overlay
@@ -28,7 +28,7 @@ Inicialmente los textos dinámicos (`currentText`) estaban dentro de `<Scroll ht
 
 ---
 
-### ✅ Solución
+###  Solución
 
 Se movió el renderizado del texto fuera de `<Scroll html>`:
 
@@ -42,7 +42,7 @@ Se movió el renderizado del texto fuera de `<Scroll html>`:
 
 ---
 
-### 🎯 Resultado
+###  Resultado
 
 * El texto ahora es **estático en pantalla**
 * Aparece y desaparece según el estado (`activeText`)
@@ -51,7 +51,7 @@ Se movió el renderizado del texto fuera de `<Scroll html>`:
 
 ---
 
-### 🧠 Concepto Clave
+###  Concepto Clave
 
 | Ubicación           | Comportamiento              |
 | ------------------- | --------------------------- |
@@ -60,7 +60,7 @@ Se movió el renderizado del texto fuera de `<Scroll html>`:
 
 ---
 
-### 🧩 Decisión de Arquitectura
+###  Decisión de Arquitectura
 
 Los textos dinámicos NO forman parte del contenido del scroll.
 
@@ -69,7 +69,7 @@ Se manejan como:
 
 ---
 
-## 🔄 Flujo de datos
+##  Flujo de datos
 
 ```jsx
 export default function App() {
@@ -275,7 +275,9 @@ Lerp convierte cambios bruscos en movimiento continuo
 
 
 
-# [ANIM-02] CSS ANIMATIONS
+
+
+# [ANIM-02] CSS ANIMATIONS - Navbar descount bar
 
 ```scss
 .navbar__discount-text {
@@ -535,6 +537,63 @@ usando:
 ```scss
 ease
 ```
+
+
+
+
+// ---------------------------
+// [ANIM-03] SMOOTH Z POSITION
+// ---------------------------
+
+# Smooth Model Transforms (Lerp)
+
+Este sistema se usa para crear movimientos suaves del modelo en lugar de moverlo directamente con el scroll.
+
+La idea principal es separar:
+
+1. El valor destino (`target`)
+2. El movimiento real del modelo (`lerp`)
+
+---
+
+## 1. Target Position
+
+```js
+const targetZ =
+  modelPosition[2]
+  + (zoomOutRange * zoomOut)
+  + (zoomInRange * zoomIn)
+```
+
+Aquí NO se mueve el modelo.
+
+Solo se calcula la posición final ideal en Z.
+
+Cada timeline (scroll.range) aporta una contribución distinta:
+
+zoomOutRange * zoomOut
+→ alejamiento
+zoomInRange * zoomIn
+→ acercamiento
+
+Todo se suma para construir la posición final.
+
+Pensarlo como:
+
+```js
+model.position.z = THREE.MathUtils.lerp(
+  model.position.z,
+  targetZ,
+  0.08
+)
+```
+
+model.position.z = THREE.MathUtils.lerp(
+  model.position.z,
+  targetZ,
+  0.08
+)
+
 
 
 

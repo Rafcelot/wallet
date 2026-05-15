@@ -1,23 +1,21 @@
 
 
 
-
-
 export const textData = [
     {
         id: 'alphine',  
 
-        fadeInStart: 0,
-        fadeInEnd: 0,
+        fadeInStart: 0.01,
+        fadeInEnd: 0.02,
 
-        visibleStart:0,
-        visibleEnd: 0,
+        visibleStart:0.1,
+        visibleEnd: 0.5,
 
         fadeOutStart: 0.1,
         fadeOutEnd: 0.15,
 
         text: 'Alphine',
-        className: ' font-display text-xl',
+        className: ' pruebauno ',
     },
 
 
@@ -27,29 +25,46 @@ export const textData = [
 export const layoutConfig = {
   mobile: {
     model: {
-      position: [-0.7, -2.3, 0],
-      // scale: [0.4, 0.4, 0.4],
+      position: [-1.1, -2.3, 0],
+      scale: [0.4, 0.4, 0.4],
       rotation: [0, Math.PI / 6, 0],
     },
     text: {
       alphine: {
-        top: '30%',
+        top: '85%',
         left: 'calc(50% + 50px)'
       }
     },
+
+    animations: {
+      zoomOut: -7,
+      zoomIn: 4,
+      moveLeft: -1.4,
+      rotationLeft: Math.PI / 2,
+      rotationRight: Math.PI / 1.5,
+
+    }
   },
 
   desktop: {
     model: {
       position: [-2, -2.2, 0],
-      // scale: [0.45, 0.45, 0.45],
-      rotation: [0, Math.PI / 5.5, 0],
+      scale: [0.4, 0.4, 0.4],
+      rotation: [0, Math.PI / 5, 0],
     },
     text: {
       alphine: {
         top: '30%',
-        left: 'calc(50% + 50px)'
+        left: 'calc(50% + 100px)'
       }
     },
+
+    animations: {
+      zoomOut: -6,
+      zoomIn: 4,
+      moveLeft: -0.5,
+      rotationLeft: Math.PI / 2,
+      rotationRight: Math.PI / 2,
+    }
   },
 }

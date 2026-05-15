@@ -25,7 +25,7 @@ const Model = forwardRef(({ materialConfig, color = 'white', ...props }, ref) =>
   const textures = useTexture(materialConfig)
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} >
       <group name="Scene">
         <group name="Armature-plastic">
           <skinnedMesh

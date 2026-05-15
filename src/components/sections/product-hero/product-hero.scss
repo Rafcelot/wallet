@@ -1,0 +1,254 @@
+@use '../../../styles/abstracts/functions' as *;
+
+
+
+.product-hero{
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 10;
+
+    pointer-events: none;
+    padding-top: 30vh;
+
+    &__container {
+        // background-color: red;
+        width: 100%;
+        height: 100%;
+
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+    }
+
+    &__information{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+    }
+
+    &__layout{
+        // background-color: darkgrey;
+        grid-column: 6 / 8;
+
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+
+        @media (max-width: 904px) {
+            grid-column: 7 / 10;
+        }
+    }
+
+    &__description {
+        // background-color: red;
+        display: flex;
+        flex-direction: column;
+        
+        gap: 16px;
+    }
+
+    &__title {
+        // grid-column: 6 / 7;
+
+        font-family: font-family(display);
+        font-size: 1.5rem;
+        line-height: 2rem;
+        font-weight: weight(semibold);
+    }
+
+    &__meta {
+        // background-color: red;
+        flex-direction: column;
+        gap: 4px;
+
+        display: flex;
+
+    
+    }
+
+    &__price {
+        color: get-color(text, secondary);
+        font-family: font-family(display);
+        font-size: font(l, size);
+        line-height: font(l, line);
+    }
+
+    &__paragraph {
+        display: none;
+        font-family: font-family(text);
+        font-size: font(s, size);
+        line-height: 1.5rem;
+        max-width: 268px;
+
+        color: get-color(text, secondary);
+
+        @media (min-width:904px) {
+            display:block
+        }
+    }
+
+    &__button-cart {
+        background-color: get-color(brand, regular);
+        
+        height: 48px;
+        width: 268px;
+        border-radius: 24px;
+
+        margin-top: 16px;
+        //TEXT
+        color: white;
+        font-family: font-family(text);
+        font-size: font(xl, size);
+        line-height: font(xl, line);
+        font-weight: weight(regular);
+
+        pointer-events: auto;
+        cursor: pointer;  
+
+        @media(max-width: 904px) {
+            // background-color: darkblue;
+
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom:24px;
+
+            // width: 80%;
+            margin-right: 24px;
+            
+
+        }
+    }
+
+    &__rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        @media(max-width: 904px) {
+            flex-direction: column;
+             align-items: flex-start;
+             margin-top: 8px;
+        }
+    }
+
+    &__stars {
+        display: flex;
+        flex-direction: row;
+        gap: 4px;
+
+        color: get-color(brand, dark);
+    }
+
+    &__reviews {
+        color: get-color(info, regular);
+
+        border-bottom: 1px solid get-color(info, regular);
+
+        font-size: font(s, size);
+        font-family: font-family(display);
+
+        line-height: 1;
+        padding-bottom: 1px;
+        
+        display: inline-block;
+    }
+
+    &__color-text {
+        font-family: font-family(display);
+        font-size: font(s, size);
+        line-height: font(s, line);
+        font-weight: weight(semibold);
+        color: get-color(text, primary);
+    }
+
+    &__current-color-texts {
+        display: flex;
+    }
+
+    &__current-color {
+        font-family: font-family(text);
+        font-size: font(s, size);
+        line-height: font(s, line);
+        font-weight: weight(reular);
+        color: get-color(text, secondary);
+
+        margin-left: 4px;
+
+    }
+
+    &__color-section{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+    }
+
+    &__color {
+        font-family: font-family(display);
+        font-size: font(s, size);
+        line-height: font(s, line);
+        font-weight: weight(semibold);
+        color: get-color(text, secondary);
+    }
+
+    &__textures {
+        // background-color: cadetblue;
+   
+        display: grid;
+        
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+          column-gap: 16px;
+
+        max-width: 176px;
+
+        @media(max-width: 904px) {
+            // background-color: darkcyan;
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 105px;
+        }
+    }
+
+    &__texture-buttons {
+        // background-color: darkblue;
+        pointer-events: auto;
+        cursor: pointer;        
+
+        
+    }
+
+    &__texture-image {
+        height: 48px;
+        aspect-ratio: 1 / 1;
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+.prueba {
+    background-color: red;
+    width: 100%;
+    height: 100px;
+}
+.prueba2 {
+    background-color: rgb(163, 156, 18);
+    width: 100%;
+    height: 100px;
+}
+.prueba3 {
+    background-color: rgb(67, 69, 214);
+    width: 100%;
+    height: 100px;
+}

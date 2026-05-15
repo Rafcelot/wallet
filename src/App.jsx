@@ -9,14 +9,19 @@ import { textData } from './data/textData.js'
 // import NavBar from "./components/layout/Navbar.jsx"
 import NavBar from "@/components/layout/navbar/Navbar.jsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint.js"
+import ProductHero from "./components/sections/product-hero/ProductHero.jsx"
 
 export default function App() {
+
+   // Estado global para la textura activa
+  const [activeTexture, setActiveTexture] = useState('black')
+ 
 
   // 📌 estados
   const [scrollOffset, setScrollOffset] = useState(0)
 
   const { isDesktop } = useBreakpoint()
-  console.log(isDesktop)
+  // console.log(isDesktop)
 
   return (
     <>
@@ -25,29 +30,37 @@ export default function App() {
 
       {/* 🟣 UI (textos) */}
       
-      <TextOverlay 
+      {/* <TextOverlay 
         scrollOffset={scrollOffset} 
         textData={textData} 
-      />
- 
+      /> */}
+
+      {/* SECTIONS */}
+      <ProductHero 
+        setActiveTexture={ setActiveTexture }
+        activeTexture={ activeTexture }
+      /> 
 
 
       {/* 🟢 3D */}
       <Canvas
-        // camera={{
-        //   position: isDesktop ? [0, 0, 12] :[0, 0, 10],
-        //   fov: isDesktop ? 45 : 35          
-        // }}
         camera={{
-          position: [0, 0, 12],
-          fov: 30
+          position: isDesktop ? [0, 0.5, 9] :[0, 0.5, 8],
+          fov: isDesktop ? 40 : 55        
         }}
+        // camera={{
+        //   position: [0, 0, 12],
+        //   fov: 30
+        // }}
       >
+
+        {/* <axesHelper args={[10]}/> */}
 
         <ScrollControls pages={3} >
 
           <Experience 
-            setScrollOffset={setScrollOffset}  
+            setScrollOffset={ setScrollOffset }  
+            activeTexture={ activeTexture }
           />
 
           <Scroll html>
