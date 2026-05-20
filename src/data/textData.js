@@ -1,7 +1,25 @@
 
 
 
-export const textData = [
+
+
+export const sectionOpacityData = 
+  {
+    id: 'product-hero',
+
+    fadeInStart: 0,
+    fadeInEnd: 0,
+
+    visibleStart:0.01,
+    visibleEnd: 0.2,
+    
+
+    fadeOutStart: 0.21,
+    fadeOutEnd: 0.4,
+  }
+
+
+  export const textData = [
     {
         id: 'alphine',  
 
@@ -20,6 +38,8 @@ export const textData = [
 
 
 ]
+
+
 
 
 export const layoutConfig = {

@@ -12,6 +12,7 @@
     pointer-events: none;
     padding-top: 30vh;
 
+
     &__container {
         // background-color: red;
         width: 100%;
@@ -216,7 +217,6 @@
         // background-color: darkblue;
         pointer-events: auto;
         cursor: pointer;        
-
         
     }
 
@@ -232,7 +232,10 @@
 
 
 
-
+// .product-hero.active {
+//     visibility: hidden;
+//     pointer-events: none;
+// }
 
 
 

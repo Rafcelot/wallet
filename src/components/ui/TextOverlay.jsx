@@ -6,12 +6,12 @@ import { layoutConfig } from '../../data/textData'
 
 export default function TextOverlay({ scrollOffset, textData }) {
 
-    const { isDesktop } = useBreakpoint()
-    
+  const { isDesktop } = useBreakpoint()
   
-    const currentLayout = isDesktop
-      ? layoutConfig.desktop
-      : layoutConfig.mobile
+
+  const currentLayout = isDesktop
+    ? layoutConfig.desktop
+    : layoutConfig.mobile
 
     
   

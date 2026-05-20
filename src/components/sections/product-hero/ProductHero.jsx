@@ -1,18 +1,102 @@
 import './product-hero.scss'
 
+
+
+import { getOpacityProductHero } from '../../../utils/getOpacity'
+
+
+
+import { useEffect, useRef, useState } from "react"
+
 import { useBreakpoint } from '../../../hooks/useBreakpoint'
 import StarIcon from '../../ui/icons/start-icon/StartIcon'
 
 import { walletTextures } from '@/data/aphineWalletTextures'
-// console.log(walletTextures)
+import { useFrame } from '@react-three/fiber'
 
-export default function ProductHero({ setActiveTexture, activeTexture }) {
+import { sectionOpacityData } from '../../../data/textData'
 
-  const { isDesktop } = useBreakpoint()
 
+export default function ProductHero({
+  setActiveTexture,
+  activeTexture,
+  scrollOffset
+}) {
+
+  
+
+  // console.log("scroll", scrollOffset)
+
+   // ---------------------------
+  // REFS
+  // ---------------------------
+
+  // const opacity = getOpacity(scrollOffset, sectionOpacityData)
+
+  const opacity = getOpacityProductHero(scrollOffset)
+
+
+
+  const previousScroll = useRef(0)
+
+  // ---------------------------
+  // STATES
+  // ---------------------------
+
+  const [hideProductHero, setHideProductHero] = useState(false)
+
+  // ---------------------------
+  // SCROLL DIRECTION
+  // ---------------------------
+
+  const isScrollinDown = 
+    scrollOffset > previousScroll.current
+
+  // ---------------------------
+  // PRODUCT HERO VISIBILITY
+  // ---------------------------
+
+  useEffect(() => {
+
+    if (isScrollinDown && scrollOffset > 0.3) {
+
+      setHideProductHero(true)
+
+    }
+
+    if (!isScrollinDown && scrollOffset < 0.01) {
+
+      const timeout = setTimeout(() => {
+
+        setHideProductHero(false)
+
+      }, 2500)
+
+      return () => clearTimeout(timeout)
+
+    }
+
+    previousScroll.current = scrollOffset
+
+  }, [scrollOffset, isScrollinDown])
+    
+
+  
   return (
 
-    <section className='product-hero'>
+    <section 
+      className={`product-hero ${hideProductHero ? "active" : ""}`}
+      style={{
+        opacity: opacity,
+        
+        visibility:
+          hideProductHero
+            ? 'hidden'
+            : 'visible',
+
+
+      }}
+      >
 
       <div className='product-hero__container'>
 

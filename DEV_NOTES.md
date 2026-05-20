@@ -229,6 +229,12 @@ export default function Experience({ setActiveText, setScrollOffset}) {
 ---
 
 
+
+
+
+
+
+
 # [ANIM-01] Smooth Progress (lerp)
 
 Suaviza cambios bruscos del scroll mediante interpolación.
@@ -541,6 +547,16 @@ ease
 
 
 
+
+
+
+
+
+
+
+
+
+
 // ---------------------------
 // [ANIM-03] SMOOTH Z POSITION
 // ---------------------------
@@ -832,3 +848,31 @@ return () => clearInterval(interval)
 `clearInterval()` stops or removes the interval created with `setInterval()`.
 
 This prevents memory leaks and unnecessary executions when the component unmounts.
+
+
+
+
+
+
+
+
+
+
+
+
+# [HOOK-01] Responsive Breakpoint Hook
+
+## ¿Qué es este hook?
+
+Este es un custom hook de React creado para detectar si el ancho actual de la pantalla pertenece a desktop.
+
+El hook escucha automáticamente los cambios de tamaño de la ventana (`resize`) y actualiza un estado booleano (`true` o `false`) dependiendo del ancho actual.
+
+---
+
+
+
+
+
+
+

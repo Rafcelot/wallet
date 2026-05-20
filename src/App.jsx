@@ -39,6 +39,7 @@ export default function App() {
       <ProductHero 
         setActiveTexture={ setActiveTexture }
         activeTexture={ activeTexture }
+        scrollOffset= {scrollOffset}
       /> 
 
 
