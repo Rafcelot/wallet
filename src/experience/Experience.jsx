@@ -51,7 +51,13 @@ export default function Experience({
 
   const modelRef = useRef()                    
 
-  const currentAnimation = useRef(null)
+  // const currentAnimation = useRef(null)
+
+  const currentAnimations = useRef({
+    wallet: null,
+    pocket: null
+  })
+
   const firstCharge = useRef(false)
 
   const smoothProgress = useRef(0)
@@ -59,7 +65,9 @@ export default function Experience({
 
   const lightRef = useRef()
 
-
+  const animationTrigged = useRef(false)
+  const pocketTimeout = useRef(null)
+  
 
   // ---------------------------
   // HOOKS
@@ -108,34 +116,66 @@ export default function Experience({
   // ANIMATION CONTROLLER
   // ---------------------------
 
-  const playAnimation = (name) => {
 
-    const actions = modelRef.current?.actions
+const playAnimation = (group, name) => {
+
+  const actions = modelRef.current?.actions
+
+  if (!actions) return
+
+  const current = currentAnimations.current[group]
+
+  if (current === name) return
+
+  const prev = actions[current]
+  const next = actions[name]
+
+  if (prev) {
+    prev.fadeOut(0.5)
+  }
+
+  next.reset()
+  next.setLoop(THREE.LoopOnce)
+  next.clampWhenFinished = true
+
+  next.fadeIn(0.5).play()
+
+  currentAnimations.current[group] = name
+}
+
+
+
+
+
+
+  // const playAnimation = (name) => {
+
+  //   const actions = modelRef.current?.actions
     
 
-    if (!actions) return
+  //   if (!actions) return
 
-    // evitar repetir la misma animación
-    if (currentAnimation.current === name) return
+  //   // evitar repetir la misma animación
+  //   if (currentAnimation.current === name) return
 
-    const next = actions[name]
-    const prev = actions[currentAnimation.current]
+  //   const next = actions[name]
+  //   const prev = actions[currentAnimation.current]
 
-    // fade out animación anterior
-    if (prev) {
-      prev.fadeOut(0.5)
-    }
+  //   // fade out animación anterior
+  //   if (prev) {
+  //     prev.fadeOut(0.5)
+  //   }
 
-    // preparar nueva animación
-    next.reset()
-    next.setLoop(THREE.LoopOnce)
-    next.clampWhenFinished = true
+  //   // preparar nueva animación
+  //   next.reset()
+  //   next.setLoop(THREE.LoopOnce)
+  //   next.clampWhenFinished = true
 
-    // reproducir nueva animación
-    next.fadeIn(0.5).play()
+  //   // reproducir nueva animación
+  //   next.fadeIn(0.5).play()
 
-    currentAnimation.current = name
-  }
+  //   currentAnimation.current = name
+  // }
 
 
 
@@ -165,6 +205,7 @@ export default function Experience({
       setScrollOffset(offset)
     }
 
+    
 
 
     // ---------------------------
@@ -176,25 +217,44 @@ export default function Experience({
       firstCharge.current = true
     }
 
-    let nextAnimation = null
-
-    // abrir billetera
-    if (offset > 0.2 && offset < 0.65) {
-      nextAnimation = 'open-leather'
-    }
-
-    // cerrar billetera
-    if (
-      (offset <= 0.2 || offset >= 0.6)
-      && firstCharge.current
+    // abrir 
+    if(
+      offset > 0.2 &&
+      offset < 0.6 &&
+      !animationTrigged.current
     ) {
-      nextAnimation = 'close-leather'
+
+      animationTrigged.current = true
+
+      playAnimation('wallet', 'open-leather')
+
+      clearTimeout(pocketTimeout.current)
+
+      pocketTimeout.current = setTimeout(() => {
+
+        playAnimation('pocket', 'open-plastic')
+      }, 3000)
     }
 
-    // ejecutar cambio de animación
-    if (nextAnimation) {
-      playAnimation(nextAnimation)
+    // Cerrar
+    if(
+      (offset <= 0.2 || offset >= 0.6) &&
+      firstCharge.current &&
+      animationTrigged.current
+    ) {
+
+      animationTrigged.current = false
+      
+      clearTimeout(pocketTimeout.current)
+
+      playAnimation('wallet', 'close-leather')
+
+      playAnimation('pocket', 'close-plastic')
     }
+
+
+    
+
 
 
 
