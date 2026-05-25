@@ -604,14 +604,6 @@ model.position.z = THREE.MathUtils.lerp(
 )
 ```
 
-model.position.z = THREE.MathUtils.lerp(
-  model.position.z,
-  targetZ,
-  0.08
-)
-
-
-
 
 
 

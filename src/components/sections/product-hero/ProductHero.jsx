@@ -49,37 +49,64 @@ export default function ProductHero({
   // SCROLL DIRECTION
   // ---------------------------
 
-  const isScrollinDown = 
-    scrollOffset > previousScroll.current
 
-  // ---------------------------
-  // PRODUCT HERO VISIBILITY
-  // ---------------------------
+
+
+
+  const showTimeout = useRef(null)
+    
+
+
 
   useEffect(() => {
 
-    if (isScrollinDown && scrollOffset > 0.3) {
+  const isScrollingDown =
+    scrollOffset > previousScroll.current
 
-      setHideProductHero(true)
+  // ---------------------------
+  // HIDE HERO
+  // ---------------------------
 
-    }
+  if (isScrollingDown && scrollOffset > 0.3) {
 
-    if (!isScrollinDown && scrollOffset < 0.01) {
+    setHideProductHero(true)
 
-      const timeout = setTimeout(() => {
+    // cancelamos cualquier show pendiente
+    clearTimeout(showTimeout.current)
 
-        setHideProductHero(false)
+  }
 
-      }, 2500)
+  // ---------------------------
+  // SHOW HERO
+  // ---------------------------
 
-      return () => clearTimeout(timeout)
+  if (!isScrollingDown && scrollOffset < 0.05) {
 
-    }
+    // evitamos crear múltiples timeouts
+    clearTimeout(showTimeout.current)
 
-    previousScroll.current = scrollOffset
+    showTimeout.current = setTimeout(() => {
 
-  }, [scrollOffset, isScrollinDown])
-    
+      setHideProductHero(false)
+
+    }, 2500)
+
+  }
+
+  previousScroll.current = scrollOffset
+
+}, [scrollOffset])
+
+
+useEffect(() => {
+
+  return () => {
+
+    clearTimeout(showTimeout.current)
+
+  }
+
+}, [])
 
   
   return (

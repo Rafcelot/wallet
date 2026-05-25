@@ -4,7 +4,7 @@
 export const getOpacity = (offset, item) => {
 
   // 🔴 antes de aparecer
-  if (offset <= item.fadeInStart) return 1
+  if (offset <= item.fadeInStart) return 0
 
 
   // 🟢 fade in

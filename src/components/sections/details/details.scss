@@ -1,0 +1,160 @@
+@use '../../../styles/abstracts/functions' as *;
+
+
+
+
+.details {
+    // background-color: red;
+
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+
+    z-index: 10;
+
+    // padding-top: 20vh;
+    margin-top: 27vh;
+
+    @media(max-width:904px) {
+        margin-top: 34vh;
+    }
+
+    &__title {
+        
+
+        font-family: font-family(display);
+        font-weight: weight(semibold);
+        font-size: 2.25rem;
+        line-height: font(xl, line);
+
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: -10vh;
+
+        color: get-color(text, primary);
+
+        @media (max-width: 904px) {
+            font-size: font(xl,size);
+            line-height: font(xl, line);
+        }
+        
+    }
+
+
+    &__grid {
+        // background-color: darkcyan;
+
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 20px;
+
+        
+        justify-items: center;
+
+        // @media(max-width: 904px) {
+        //     grid-template-columns: repeat(, 1fr);
+        // }
+    }
+
+    &__text-left {
+    grid-column: 3;
+
+    @media(max-width: 904px) {
+        grid-column: 2 / 4;
+    }
+    
+    }
+
+    &__text-right {
+    grid-column: 5;
+
+    @media(max-width: 904px) {
+        grid-column: 5 / 7;
+    }
+    
+    }
+
+    &__text-left--down {
+    grid-column: 3;
+     transform: translateY(51vh);
+
+    @media(max-width: 904px) {
+        transform: translateY(35vh);
+         grid-column: 2 / 4;
+    }
+    
+    }
+
+    &__text-right--down {
+    grid-column: 5;
+     transform: translateY(51vh);
+
+    @media(max-width: 904px) {
+        transform: translateY(35vh);
+         grid-column: 5 / 7;
+    }
+    
+    
+    }
+
+
+    &__principal-text {
+        font-family: font-family(display);
+        font-weight: weight(semibold);
+        font-size: font(m, size);
+        line-height: font(m, size);
+        color: get-color(text, primary);
+    }
+
+    &__secondary-text {
+        font-family: font-family(text);
+        color: get-color(text, secondary);
+
+        font-size: font(s, size);
+        line-height: font(s, line);
+    }
+
+
+}
+
+
+    .a {
+        width: 100%;
+        height: 100px;
+        background-color: darkblue;
+    }
+
+    .prueba {
+
+        &__11 {
+            background-color: forestgreen;
+        }
+
+            &__22 {
+            background-color: rgb(34, 69, 139);
+            grid-row: 2;
+        }
+
+            &__33 {
+            background-color: rgb(121, 139, 34);
+        }
+    &__44 {
+            background-color: rgb(224, 62, 56);
+            grid-row: 2;
+        }
+    &__55 {
+            background-color: rgb(145, 79, 132);
+        }
+    &__66 {
+            background-color: forestgreen;
+            grid-row: 2;
+        }
+    &__77 {
+            background-color: rgb(145, 175, 218);
+            grid-row: 2;
+        }
+
+
+
+    }

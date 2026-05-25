@@ -10,6 +10,7 @@ import { textData } from './data/textData.js'
 import NavBar from "@/components/layout/navbar/Navbar.jsx"
 import { useBreakpoint } from "@/hooks/useBreakpoint.js"
 import ProductHero from "./components/sections/product-hero/ProductHero.jsx"
+import Details from "./components/sections/details/Details.jsx"
 
 export default function App() {
 
@@ -25,6 +26,10 @@ export default function App() {
 
   return (
     <>
+
+      <Details 
+        scrollOffset= {scrollOffset}
+      />
 
       <NavBar />
 

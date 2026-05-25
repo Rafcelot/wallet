@@ -97,7 +97,12 @@ export default function Experience({
 
   const moveLeft = currentLayout.animations.moveLeft
 
+  const moveDown = currentLayout.animations.moveDown
 
+  const moveRight = currentLayout.animations.moveRight
+
+  const rotationRightPullOver = currentLayout.animations.rotationRightPullOver
+ 
 
   // ---------------------------
   // ANIMATION CONTROLLER
@@ -106,6 +111,7 @@ export default function Experience({
   const playAnimation = (name) => {
 
     const actions = modelRef.current?.actions
+    
 
     if (!actions) return
 
@@ -173,13 +179,13 @@ export default function Experience({
     let nextAnimation = null
 
     // abrir billetera
-    if (offset > 0.2 && offset < 0.5) {
+    if (offset > 0.2 && offset < 0.65) {
       nextAnimation = 'open-leather'
     }
 
     // cerrar billetera
     if (
-      (offset <= 0.2 || offset >= 0.7)
+      (offset <= 0.2 || offset >= 0.6)
       && firstCharge.current
     ) {
       nextAnimation = 'close-leather'
@@ -196,17 +202,21 @@ export default function Experience({
     // SCROLL RANGES
     // ---------------------------
 
-    const zoomOutRange = scroll.range(0, 0.2)
+    const zoomOutRange = scroll.range(0, 0.4)
 
-    const zoomInRange = scroll.range(0.7, 0.2)
+    const zoomInRange = scroll.range(0.7, 0.1)
 
     const rotationLeftRange = scroll.range(0, 0.3)
 
-    const rotationRightRange = scroll.range(0.5, 0.2)
+    const rotationRightRange = scroll.range(0.6, 0.4)
 
     const moveLeftRange = scroll.range(0, 0.3)
 
+    const moveDownRange = scroll.range(0.15, 0.25)
 
+    const moveRightRange = scroll.range(0.7, 1)
+
+    const rotationRightPullOverRange = scroll.range(0.7, 1)
 
     // ---------------------------
     // SMOOTH VALUES [ANIM-01] SMOOTH SCROLL (LERP)
@@ -223,7 +233,7 @@ export default function Experience({
 
 
     // ---------------------------
-    // TARGET VALUES [ANIM-03] SMOOTH Z POSITION
+    //  [ANIM-03] SMOOTH Z POSITION
     // ---------------------------
 
     const targetZ =
@@ -235,13 +245,21 @@ export default function Experience({
       modelRotation[1]
       + (rotationLeftRange * -rotationLeft)
       + (rotationRightRange * rotationRight)
+      // + (rotationRightPullOverRange * -rotationRightPullOver)
 
     const targetX =
       modelPosition[0]
       + (smoothMoveProgress * moveLeft)
+      + (moveRightRange * moveRight)
+
+    const targetY = 
+      modelPosition[1]
+        + (moveDownRange * moveDown)
 
 
 
+    
+      
     // ---------------------------
     // MODEL
     // ---------------------------
@@ -258,7 +276,7 @@ export default function Experience({
 
     model.position.x = targetX
 
-    model.position.y = modelPosition[1]
+    model.position.y = targetY
 
     model.position.z = THREE.MathUtils.lerp(
       model.position.z,

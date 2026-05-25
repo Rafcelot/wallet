@@ -19,25 +19,37 @@ export const sectionOpacityData =
   }
 
 
-  export const textData = [
-    {
-        id: 'alphine',  
+export const textData = [
+  {
+      id: 'alphine',  
 
-        fadeInStart: 0.01,
-        fadeInEnd: 0.02,
+      fadeInStart: 0.01,
+      fadeInEnd: 0.02,
 
-        visibleStart:0.1,
-        visibleEnd: 0.5,
+      visibleStart:0.1,
+      visibleEnd: 0.5,
 
-        fadeOutStart: 0.1,
-        fadeOutEnd: 0.15,
+      fadeOutStart: 0.1,
+      fadeOutEnd: 0.15,
 
-        text: 'Alphine',
-        className: ' pruebauno ',
-    },
+      text: 'Alphine',
+      className: ' pruebauno ',
+  },
 
 
 ]
+
+export const detailsOpacityData = {
+    fadeInStart: 0.3,
+    fadeInEnd: 0.4,
+
+    visibleStart:0.4,
+    visibleEnd: 0.6,
+    
+
+    fadeOutStart: 0.6,
+    fadeOutEnd: 0.7,
+}
 
 
 
@@ -62,6 +74,9 @@ export const layoutConfig = {
       moveLeft: -1.4,
       rotationLeft: Math.PI / 2,
       rotationRight: Math.PI / 1.5,
+      moveDown: -1.4,
+      moveRight: 7,
+      rotationRightPullOver: Math.PI / 2,
 
     }
   },
@@ -80,11 +95,14 @@ export const layoutConfig = {
     },
 
     animations: {
-      zoomOut: -6,
-      zoomIn: 4,
+      zoomOut: -3,
+      zoomIn: 2.5,
       moveLeft: -0.5,
-      rotationLeft: Math.PI / 2,
-      rotationRight: Math.PI / 2,
+      rotationLeft: Math.PI / 1.9,
+      rotationRight: -(Math.PI * 2) / 1.3,
+      moveDown: -0.5,
+      moveRight: 14,
+      rotationRightPullOver: (Math.PI * 2) / 4 ,
     }
   },
 }
