@@ -1,0 +1,119 @@
+@use '../../../styles/abstracts/functions' as *;
+
+
+// .product-pop-up-grid {
+//     background-color: chocolate;
+
+//     display: grid;
+//     grid-template-columns: repeat(12, 1fr);
+//     // height: 300px;
+// }
+
+.product-pop-up {
+    // background-color: cadetblue;
+
+    position: absolute;
+    z-index: 10;
+    padding-top: 40vh;
+    width: 100%;
+    pointer-events: none;
+
+    @media(max-width: 904px) {
+        padding-top: 24vh;
+    }
+
+    &__container {
+        // background-color: darkgrey;
+
+        // width: 100%;
+        // height: 100%;
+        
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+
+        @media(max-width: 904px) {
+            grid-template-columns: repeat(8, 1fr);
+        }
+    }
+    
+    &__layout {
+        grid-column: 3 / 7;
+
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        justify-self: center;
+        max-width: 467px;
+
+        
+        @media(max-width: 904px) {
+            grid-column: 2 / 8;
+            gap: 8px;
+        }
+
+    }
+
+
+
+    &__intro {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    &__title {
+        font-family: font-family(display);
+        font-size: 1.75rem;
+        font-weight: weight(semibold);
+
+            
+        @media(max-width: 904px) {
+            font-size: font(l, size);
+        }
+
+
+    }
+
+    &__text-title {
+        
+        font-family: font-family(display);
+        font-size: font(l, size);
+        line-height: font(l, line);
+        color: get-color(text, secondary);
+
+        text-align: center;
+
+        @media(max-width: 904px) {
+            font-size: font(m, size);
+            line-height: font(m, line);
+        }
+
+        
+    }
+
+    &__details {
+        background-color: get-color(surface, strong);
+
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        padding: 24px;
+
+        font-family: font-family(text);
+        font-size: font(l, size);
+        font-weight: weight(medium);
+
+        @media(max-width: 904px) {
+            display: none;
+        }
+    }
+
+    &__detail {
+        display: flex;
+        gap: 12px;
+    }
+
+    
+}

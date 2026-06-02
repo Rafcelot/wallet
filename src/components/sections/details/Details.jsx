@@ -35,7 +35,7 @@ export default function Details ({
 
                     <div className='details__text-right  '>
                         <p className='details__principal-text'>100% cuero</p>
-                        <p className='details__secondary-text'>Toques suave</p>
+                        <p className='details__secondary-text'>Suave al tacto.</p>
                     </div>
 
                     <div className='details__text-left details__text-left--down' >

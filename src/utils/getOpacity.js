@@ -32,6 +32,15 @@ export const getOpacity = (offset, item) => {
   return 0
 }
 
+export const getOpacityPopUp = (offset) => {
+  if (offset <= 0.82) return 0
+
+  // fade in
+  if ( offset >= 0.82 && offset <= 0.85) {
+    return (offset - 0.82) / (0.85 - 0.82)
+  }
+}
+
 
 export const getOpacityProductHero = (offset) => {
   
@@ -53,33 +62,3 @@ export const getOpacityProductHero = (offset) => {
 }
 
 
-// export const getOpacity = (offset, item) => {
-
-//   // 🔴 antes de aparecer
-//   if (offset <= item.fadeInStart) return 0
-
-
-//   // 🟢 fade in
-//   if (offset > item.fadeInStart && offset <= item.fadeInEnd) {
-//     return (offset - item.fadeInStart) / (item.fadeInEnd - item.fadeInStart)
-//   }
-
-
-//   // 🟡 visible
-//   if (offset > item.fadeInEnd && offset < item.fadeOutStart) {
-//     return 1
-//   }
-
-
-//   // 🔵 fade out
-//   if (offset >= item.fadeOutStart && offset < item.fadeOutEnd) {
-//     return 1 - (
-//       (offset - item.fadeOutStart) /
-//       (item.fadeOutEnd - item.fadeOutStart)
-//     )
-//   }
-
-
-//   // ⚫ después
-//   return 0
-// }

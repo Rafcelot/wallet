@@ -48,13 +48,12 @@
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         gap: 20px;
-
         
         justify-items: center;
 
-        // @media(max-width: 904px) {
-        //     grid-template-columns: repeat(, 1fr);
-        // }
+        @media(max-width: 904px) {
+            margin-top: 5vh;
+        }
     }
 
     &__text-left {

@@ -23,19 +23,13 @@ export default function ProductHero({
   scrollOffset
 }) {
 
-  
 
-  // console.log("scroll", scrollOffset)
 
    // ---------------------------
   // REFS
   // ---------------------------
 
-  // const opacity = getOpacity(scrollOffset, sectionOpacityData)
-
   const opacity = getOpacityProductHero(scrollOffset)
-
-
 
   const previousScroll = useRef(0)
 
@@ -48,10 +42,6 @@ export default function ProductHero({
   // ---------------------------
   // SCROLL DIRECTION
   // ---------------------------
-
-
-
-
 
   const showTimeout = useRef(null)
     
@@ -98,6 +88,8 @@ export default function ProductHero({
 }, [scrollOffset])
 
 
+
+
 useEffect(() => {
 
   return () => {
@@ -112,7 +104,7 @@ useEffect(() => {
   return (
 
     <section 
-      className={`product-hero ${hideProductHero ? "active" : ""}`}
+      className={'product-hero'}
       style={{
         opacity: opacity,
         
@@ -164,11 +156,10 @@ useEffect(() => {
             </div>
             
             <p className="product-hero__paragraph">
-              Lorem ipsum dolor sit amet consectetur.
-              Enim eu ut nam pulvinar egestas eget facilisis.
-              Elementum purus rhoncus tellus sagittis.
-              Pretium cursus arcu morbi phasellus.
-              Proin aliquet vel mi pharetra urna neque a.
+             Billetera minimalista con acabado premium y diseño elegante. 
+             Fabricada con materiales resistentes para mayor durabilidad diaria. 
+             Incluye mecanismo pop-up para acceso rápido a tarjetas. 
+             Compartimento interno para billetes y espacio adicional para tarjetas.
             </p>
 
           </div>

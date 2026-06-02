@@ -29,7 +29,7 @@ import { layoutConfig } from '../data/textData.js'
 // hooks
 import { useBreakpoint } from '../hooks/useBreakpoint.js'
 
-
+import { Lightformer } from '@react-three/drei'
 
 
 
@@ -45,6 +45,8 @@ export default function Experience({
   activeTexture
 }) {
 
+
+
   // ---------------------------
   // REFS
   // ---------------------------
@@ -55,7 +57,8 @@ export default function Experience({
 
   const currentAnimations = useRef({
     wallet: null,
-    pocket: null
+    pocket: null,
+    'first-card': null,
   })
 
   const firstCharge = useRef(false)
@@ -67,7 +70,17 @@ export default function Experience({
 
   const animationTrigged = useRef(false)
   const pocketTimeout = useRef(null)
-  
+
+  const firstCardTriggered = useRef(false)  
+  const firstCardTimeout = useRef(null)
+
+  const secondCardTriggered = useRef(false)  
+  const secondCardTimeout = useRef(null)
+
+  const leverTriggered = useRef(false)  
+  const leverTimeout = useRef(null)
+
+
 
   // ---------------------------
   // HOOKS
@@ -111,6 +124,8 @@ export default function Experience({
 
   const rotationRightPullOver = currentLayout.animations.rotationRightPullOver
  
+ 
+
 
   // ---------------------------
   // ANIMATION CONTROLLER
@@ -145,40 +160,6 @@ const playAnimation = (group, name) => {
 
 
 
-
-
-
-  // const playAnimation = (name) => {
-
-  //   const actions = modelRef.current?.actions
-    
-
-  //   if (!actions) return
-
-  //   // evitar repetir la misma animación
-  //   if (currentAnimation.current === name) return
-
-  //   const next = actions[name]
-  //   const prev = actions[currentAnimation.current]
-
-  //   // fade out animación anterior
-  //   if (prev) {
-  //     prev.fadeOut(0.5)
-  //   }
-
-  //   // preparar nueva animación
-  //   next.reset()
-  //   next.setLoop(THREE.LoopOnce)
-  //   next.clampWhenFinished = true
-
-  //   // reproducir nueva animación
-  //   next.fadeIn(0.5).play()
-
-  //   currentAnimation.current = name
-  // }
-
-
-
   // ---------------------------
   // FRAME LOOP
   // ---------------------------
@@ -191,8 +172,7 @@ const playAnimation = (group, name) => {
 
     const offset = scroll.offset
 
-
-
+ 
     // ---------------------------
     // OPTIMIZATION
     // ---------------------------
@@ -233,7 +213,7 @@ const playAnimation = (group, name) => {
       pocketTimeout.current = setTimeout(() => {
 
         playAnimation('pocket', 'open-plastic')
-      }, 3000)
+      }, 2200)
     }
 
     // Cerrar
@@ -252,8 +232,99 @@ const playAnimation = (group, name) => {
       playAnimation('pocket', 'close-plastic')
     }
 
+    // Open first-cards
+    if (
+      offset > 0.95 &&
+      !firstCardTriggered.current     
+    ) {
+
+      firstCardTriggered.current = true
+
+      clearTimeout(firstCardTimeout.current)
+      
+      firstCardTimeout.current = setTimeout(() => {
+        
+        playAnimation('first-card', 'open-first-card')
+      },1500)
+
+    }
+
+    // Close first-card
+    if(
+      offset < 0.95 &&
+      firstCardTriggered.current
+    ) {
+
+      clearTimeout(firstCardTimeout.current)
+
+      firstCardTriggered.current = false
+
+      playAnimation('first-card', 'close-first-card')
+    }
 
     
+    // Open second-cards
+    if (
+      offset > 0.95 &&
+      !secondCardTriggered.current     
+    ) {
+
+      secondCardTriggered.current = true
+
+      clearTimeout(secondCardTimeout.current)
+      
+      secondCardTimeout.current = setTimeout(() => {
+        
+        playAnimation('second-card', 'open-second-card')
+      },1500)
+
+    }
+
+    // Close second-card
+    if(
+      offset < 0.95 &&
+      secondCardTriggered.current
+    ) {
+
+      clearTimeout(firstCardTimeout.current)
+
+      secondCardTriggered.current = false
+
+      playAnimation('second-card', 'close-second-card')
+    }
+
+
+        // Open lever
+    if (
+      offset > 0.95 &&
+      !leverTriggered.current     
+    ) {
+
+      leverTriggered.current = true
+
+      clearTimeout(leverTimeout.current)
+      
+      leverTimeout.current = setTimeout(() => {
+        
+        playAnimation('lever', 'open-lever')
+      },1500)
+
+    }
+
+    // Close lever
+    if(
+      offset < 0.95 &&
+      leverTriggered.current
+    ) {
+
+      clearTimeout(leverTimeout.current)
+
+      leverTriggered.current = false
+
+      playAnimation('lever', 'close-lever')
+    }
+
+
 
 
 
@@ -274,26 +345,17 @@ const playAnimation = (group, name) => {
 
     const moveDownRange = scroll.range(0.15, 0.25)
 
-    const moveRightRange = scroll.range(0.7, 1)
+    const moveRightRange = scroll.range(0.6, 1)
 
-    const rotationRightPullOverRange = scroll.range(0.7, 1)
+    const rotationRightPullOverRange = scroll.range(0.6, 1)
 
-    // ---------------------------
-    // SMOOTH VALUES [ANIM-01] SMOOTH SCROLL (LERP)
-    // ---------------------------
 
-    smoothProgress.current = THREE.MathUtils.lerp(
-      smoothProgress.current,
-      moveLeftRange,
-      0.08
-    )
 
-    const smoothMoveProgress = smoothProgress.current
-
+   
 
 
     // ---------------------------
-    //  [ANIM-03] SMOOTH Z POSITION
+    //  TARGET TRANSFORMS
     // ---------------------------
 
     const targetZ =
@@ -309,7 +371,7 @@ const playAnimation = (group, name) => {
 
     const targetX =
       modelPosition[0]
-      + (smoothMoveProgress * moveLeft)
+      + (moveLeftRange * moveLeft)
       + (moveRightRange * moveRight)
 
     const targetY = 
@@ -334,7 +396,13 @@ const playAnimation = (group, name) => {
     // APPLY TRANSFORMS
     // ---------------------------
 
-    model.position.x = targetX
+    // model.position.x = targetX
+
+    model.position.x = THREE.MathUtils.lerp(
+      model.position.x,
+      targetX,
+      0.08
+    )
 
     model.position.y = targetY
 
@@ -357,7 +425,7 @@ const playAnimation = (group, name) => {
   // DEBUG
   // ---------------------------
 
-  useHelper(lightRef, DirectionalLightHelper, 1)
+  // useHelper(lightRef, DirectionalLightHelper, 1)
 
 
 
@@ -376,19 +444,31 @@ const playAnimation = (group, name) => {
         materialConfig={leatherPresets[activeTexture]}
       />
 
-
-
       {/* LIGHT */}
       <directionalLight
         ref={lightRef}
-        position={[3, 5, 5]}
-        intensity={1.5}
+        position={[-1, 3, 5]}
+        intensity={0.8}
       />
 
-
-
       {/* ENVIRONMENT */}
-      <Environment preset='lobby' />
+      {/* <Environment preset='city' background/> */}
+
+      <Environment
+        // background
+        preset='warehouse'
+        environmentIntensity={0.8}
+      
+      >
+            <color args={ ['rgb(0, 0, 0)'] } attach={ 'background'} />
+            <Lightformer 
+                position-z={ -5 } 
+                scale={ 10 }
+                color={ 'rgb(184, 184, 184)' }
+                intensity={ 2 }
+                form={ 'ring' }
+            />
+      </Environment>
 
     </>
   )
@@ -427,289 +507,3 @@ const playAnimation = (group, name) => {
 
 
 
-
-
-
-
-
-
-
-// // ---------------------------
-// // IMPORTS
-// // ---------------------------
-
-// // drei
-// import { Environment, useHelper, useScroll } from '@react-three/drei'
-
-// // fiber
-// import { useFrame } from '@react-three/fiber'
-
-// // react
-// import { useRef, useState } from 'react'
-
-// // three
-// import * as THREE from 'three'
-// import { DirectionalLightHelper } from 'three'
-
-// // models
-// import Wallet from './models/Wallet.jsx'
-
-// // data
-// import { leatherPresets } from '../data/materials.js'
-
-// // custom hock
-// import { useBreakpoint } from '../hooks/useBreakpoint.js'
-// import { layoutConfig } from '../data/textData.js'
-
-
-
-
-
-// // ---------------------------
-// // COMPONENT
-// // ---------------------------
-
-// export default function Experience({ setActiveText, setScrollOffset, activeTexture }) {
-// // console.log("experiece", activeTexture)
- 
-
-//   // ---------------------------
-//   // REFS
-//   // ---------------------------
-
-//   const modelRef = useRef()            // referencia al modelo
-//   const scroll = useScroll()           // hook de scroll
-
-//   const currentAnimation = useRef(null) // animación actual
-//   const firstCharge = useRef(false)     // control para saber si ya abrió
-//   const smoothProgress = useRef(0)      // progreso suavizado (lerp)
-//   const lastOffset = useRef(0)          // evitar re-renders innecesarios
-
-//   const lightRef = useRef()             // referencia de la luz
-
-//   // --------------------
-//   // 
-//   // ---------------------
-
-//   const { isDesktop } = useBreakpoint()
-  
-
-//   const currentLayout = isDesktop
-//     ? layoutConfig.desktop
-//     : layoutConfig.mobile
-
-
-//   const modelPosition = currentLayout.model.position
-//   const modelScale = currentLayout.model.scale
-//   const modelRotation = currentLayout.model.rotation
-  
-//   const zoomOut = currentLayout.animations.zoomOut
-//   const zoomIn = currentLayout.animations.zoomIn 
-  
-//   const rotationLeft = currentLayout.animations.rotationLeft
-//   const rotationRight = currentLayout.animations.rotationRight
-  
-
-
-
-
-//   const moveLeft = currentLayout.animations.moveLeft
-
-//   // ---------------------------
-//   // ANIMATION CONTROLLER
-//   // ---------------------------
-
-//   const playAnimation = (name) => {
-
-//     const actions = modelRef.current?.actions
-//     if (!actions) return
-
-//     // evitar repetir la misma animación
-//     if (currentAnimation.current === name) return
-
-//     const next = actions[name]
-//     const prev = actions[currentAnimation.current]
-
-//     // fade out de la anterior
-//     if (prev) prev.fadeOut(0.5)
-
-//     // preparar nueva animación
-//     next.reset()
-//     next.setLoop(THREE.LoopOnce)
-//     next.clampWhenFinished = true
-
-//     // reproducir con fade
-//     next.fadeIn(0.5).play()
-
-//     currentAnimation.current = name
-//   }
-
-
-
-//   // ---------------------------
-//   // FRAME LOOP (CORE LOGIC)
-//   // ---------------------------
-
-//   useFrame(() => {
-
-//     const offset = scroll.offset
-//     // console.log(offset)
-
-
-//     // ---------------------------
-//     // [SYS-01] OPTIMIZACIÓN RE-RENDER
-//     // ---------------------------
-
-//     // solo actualiza si el cambio es significativo
-//     if (Math.abs(offset - lastOffset.current) > 0.01) {
-//       lastOffset.current = offset
-//       setScrollOffset(offset)
-//     }
-
-
-
-
-
-//     // ---------------------------
-//     //  CONTROL DE ANIMACIONES
-//     // ---------------------------
-
-//     // marcar que ya pasó por apertura
-//     if (offset >= 0.2) {
-//       firstCharge.current = true
-//     }
-
-//     let nextAnimation = null
-
-//     // abrir
-//     if (offset > 0.2 && offset < 0.5) {
-//       nextAnimation = 'open-leather'
-//     }
-
-//     // cerrar (solo si ya abrió antes)
-//     if ((offset <= 0.2 || offset >= 0.7) && firstCharge.current) {
-//       nextAnimation = 'close-leather'
-//     }
-
-//     // ejecutar cambio de animación
-//     if (nextAnimation) {
-//       playAnimation(nextAnimation)
-//     }
-
-
-
-//     // ---------------------------
-//     // [ANIM-01] SMOOTH SCROLL (LERP)
-//     // ---------------------------
-
-//     // Esto solo genera un smoth en en rango de 0 a 0.3
-//     const target = scroll.range(0, 0.3)
-    
-//     smoothProgress.current = THREE.MathUtils.lerp(
-//       smoothProgress.current,
-//       target,
-//       0.08
-//     )
-
-//     const progress = smoothProgress.current
-
-
-    
-//     const zoomOutRange = scroll.range(0, 0.2)
-//     const zoomInRange = scroll.range(0.7, 0.2)
-
-//     const rotationLightRange = scroll.range(0, 0.3)
-//     const rotationRightRange = scroll.range(0.5, 0.2)
-
-
-//     // ---------------------------
-//     // [ANIM-03] SMOOTH Z POSITION
-//     // ---------------------------
-
-//     const targetZ =
-//     modelPosition[2]          // posición inicial
-//     + (zoomOutRange * zoomOut) // alejamiento
-//     + (zoomInRange * zoomIn)   // acercamiento
-    
-
-//     const targetRotationY = 
-//       modelRotation[1]
-//       + (rotationLightRange * -rotationLeft)
-//       + (rotationRightRange * rotationRight)
-
-//     // ---------------------------
-//     //  TRANSFORM MODEL
-//     // ---------------------------
-
-
-//     const model = modelRef.current?.group?.current
-//     if (!model) return
-
-//     model.position.z = THREE.MathUtils.lerp(
-//       model.position.z,
-//       targetZ,
-//       0.08
-//     )
-
-//     model.rotation.y = THREE.MathUtils.lerp(
-//       model.rotation.y,
-//       targetRotationY,
-//       0.08
-//     )
-
-//     model.position.x = modelPosition[0]
-//     model.position.y = modelPosition[1]
-   
-
-   
-    
-//     // model.rotation.y = -(progress * Math.PI / 2) + Math.PI / 5
-
-//     model.position.x = modelPosition[0] + (progress * moveLeft)
-   
-   
-
-    
-//   })
-
-
-
-//   // ---------------------------
-//   // DEBUG HELPERS
-//   // ---------------------------
-
-//   useHelper(lightRef, DirectionalLightHelper, 1)
-
-
-
-//   // ---------------------------
-//   // JSX
-//   // ---------------------------
-
-//   return (
-//     <>
-      
-
-//       {/* MODEL */}
-//       <Wallet
-//         ref={modelRef}
-//         scale={[0.4, 0.4, 0.4]}
-//         // scale = {modelScale}
-//         // position={[-5000, 0, 0]}
-//         // rotation={[0, Math.PI / 6, 0]}
-//         rotation={ modelRotation }
-//         materialConfig={leatherPresets[activeTexture]}
-//       />
-
-//       {/* LIGHT */}
-//       <directionalLight
-//         ref={lightRef}
-//         position={[3, 5, 5]}
-//         intensity={1.5}
-//       />
-
-//       {/* ENVIRONMENT */}
-//       <Environment preset='lobby' />
-//     </>
-//   )
-// }

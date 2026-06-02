@@ -12,6 +12,8 @@ import { useBreakpoint } from "@/hooks/useBreakpoint.js"
 import ProductHero from "./components/sections/product-hero/ProductHero.jsx"
 import Details from "./components/sections/details/Details.jsx"
 
+import ProductPopUp from "./components/sections/product-pop-up/ProductPopUp.jsx"
+
 export default function App() {
 
    // Estado global para la textura activa
@@ -33,6 +35,10 @@ export default function App() {
 
       <NavBar />
 
+      <ProductPopUp 
+        scrollOffset = {scrollOffset}
+      />
+
       {/* 🟣 UI (textos) */}
       
       {/* <TextOverlay 
@@ -51,7 +57,7 @@ export default function App() {
       {/* 🟢 3D */}
       <Canvas
         camera={{
-          position: isDesktop ? [0, 0.5, 9] :[0, 0.5, 8],
+          position: isDesktop ? [0, 0.5, 9] : [0, 0.5, 8],
           fov: isDesktop ? 40 : 55        
         }}
         // camera={{

@@ -127,8 +127,8 @@ export default function NavBar() {
 
                         <div className="navbar__dropdown">
                             <ul>
-                                <li>Otro</li>
-                                <li>Otro</li>
+                                <li>Ropa</li>
+                                <li>Accesorios</li>
                             </ul>
                         </div>
 
@@ -251,7 +251,7 @@ export default function NavBar() {
                                     {/* LEVEL 2 DROPDOWN */}
                                     <div className={`navbar__dropdown ${openItem["hombre-botas"] ? "active" : ""}`}>
 
-                                        <span>Hello</span>
+                                        <span></span>
 
                                     </div>
 
@@ -312,7 +312,7 @@ export default function NavBar() {
                                     {/* LEVEL 2 DROPDOWN */}
                                     <div className={`navbar__dropdown ${openItem["mujer-botas"] ? "active" : ""}`}>
 
-                                        <span>Hello</span>
+                                        <span></span>
 
                                     </div>
 

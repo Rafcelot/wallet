@@ -6,13 +6,15 @@ import React, { useRef, forwardRef, useImperativeHandle } from 'react'
 import { useGLTF, useAnimations, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 
+import { creditCadsTextures } from '../../data/materials'
+
 
 // forwardRef permite que el padre reciba un ref 
-const Model = forwardRef(({ materialConfig, color = 'white', ...props }, ref) => {
+const Model = forwardRef(({ materialConfig, ...props }, ref) => {
 
   const group = useRef()
 
-  const { nodes, materials, animations } = useGLTF('/models/wallet2.1.glb')
+  const { nodes, materials, animations } = useGLTF('/models/wallet2.7.glb')
   const { actions } = useAnimations(animations, group)
 
   // 👇 AQUÍ expones las animaciones
@@ -23,17 +25,43 @@ const Model = forwardRef(({ materialConfig, color = 'white', ...props }, ref) =>
   }))
 
   const textures = useTexture(materialConfig)
+  const CardsTextures = useTexture(creditCadsTextures)
+  CardsTextures['card-2'].flipY = false
+  CardsTextures['card-1'].flipY = false
 
+
+  React.useEffect(() => {
+
+  const geometry = nodes['leather-piece'].geometry
+
+  geometry.setAttribute(
+    'uv2',
+    new THREE.BufferAttribute(
+      geometry.attributes.uv.array,
+      2
+    )
+  )
+
+}, [nodes])
+  
   return (
-    <group ref={group} {...props} dispose={null} >
+ <group ref={group} {...props} dispose={null}>
       <group name="Scene">
         <group name="Armature-plastic">
           <skinnedMesh
             name="plastic-piece"
             geometry={nodes['plastic-piece'].geometry}
-            material={nodes['plastic-piece'].material}
             skeleton={nodes['plastic-piece'].skeleton}
-          />
+          >
+
+            <meshStandardMaterial
+              color="#3e3e3e"
+              roughness={0.4}
+              metalness={0.15}
+              skinning
+            />
+
+          </skinnedMesh>
           <primitive object={nodes['bb-1']} />
           <primitive object={nodes['bb-2']} />
         </group>
@@ -44,28 +72,91 @@ const Model = forwardRef(({ materialConfig, color = 'white', ...props }, ref) =>
             material={nodes.costuras.material}
             skeleton={nodes.costuras.skeleton}
           />
-          <skinnedMesh
+             <skinnedMesh
             name="leather-piece"
-            geometry={nodes['leather-piece'].geometry}
+            geometry={nodes['leather-piece'].geometry}            
             skeleton={nodes['leather-piece'].skeleton}
           >
-            <meshStandardMaterial 
-              map={textures.map}
-              normalMap={textures.normalMap}
+             <meshStandardMaterial 
+               map={textures.map}
+               normalMap={textures.normalMap}
+               roughness={0.95}
+               roughnessMap={textures.roughnessMap}
+               aoMapIntensity={1}
+               aoMap={textures.aoMap}
             />
+
           </skinnedMesh>
-          
           <primitive object={nodes['bc-1']} />
         </group>
         <mesh
-          name="metal-piece"
+          name="card-case"
           castShadow
           receiveShadow
-          geometry={nodes['metal-piece'].geometry}
-          material={nodes['metal-piece'].material}
-        />
+          geometry={nodes['card-case'].geometry}
+        >
+
+          <meshStandardMaterial
+            color="#4a4a4a"
+            metalness={1}
+            roughness={0.35}
+          />
+
+        </mesh>
+        <mesh
+          name="lever"
+          castShadow
+          receiveShadow
+          geometry={nodes.lever.geometry}
+          position={[-0.001, 0.958, 1.3]}
+        >
+
+          <meshStandardMaterial
+            color="#151515"
+            roughness={0.85}
+            metalness={0.05}
+          />
+
+        </mesh>
+        <mesh
+        name="card-1"
+          castShadow
+          receiveShadow
+         geometry={nodes['card-1'].geometry}
+         position={[4.557, -4.607, -4.199]}
+         rotation={[0, Math.PI / 2, 0]}
+         scale={[1, 1, 1.6]}
+       >
+
+          {/* Material */}
+         <meshStandardMaterial
+          map={CardsTextures['card-2']}
+           // color="#bb1f1f"
+           roughness={0.4}
+           metalness={0.2}
+          />
+
+        </mesh>
+        <mesh
+          name="card-2"
+          castShadow
+          receiveShadow
+          geometry={nodes['card-2'].geometry}
+          material={nodes['card-2'].material}
+          position={[4.856, -4.63, -4.199]}
+          rotation={[0, Math.PI / 2, 0]}
+          scale={[1, 1, 1.6]}
+        >
+          <meshStandardMaterial
+          map={CardsTextures['card-1']}
+           // color="#bb1f1f"
+           roughness={0.4}
+           metalness={0.2}
+          />
+        </mesh>
       </group>
     </group>
+
   )
 })
 
@@ -74,13 +165,87 @@ export default Model
 
 
 
-          // <skinnedMesh
-          //   name="leather-piece"
-          //   geometry={nodes['leather-piece'].geometry}
-          //   skeleton={nodes['leather-piece'].skeleton}
-          // >
-          //   <meshStandardMaterial
-          //     map={textures.map}
-          //     normalMap={textures.normalMap}
-          //   />
-          // </skinnedMesh>
+
+//  <group ref={group} {...props} dispose={null}>
+//       <group name="Scene">
+//         <group name="Armature-plastic">
+//           <skinnedMesh
+//             name="plastic-piece"
+//             geometry={nodes['plastic-piece'].geometry}
+//             material={nodes['plastic-piece'].material}
+//             skeleton={nodes['plastic-piece'].skeleton}
+//           />
+//           <primitive object={nodes['bb-1']} />
+//           <primitive object={nodes['bb-2']} />
+//         </group>
+//         <group name="Armature-leather">
+//           <skinnedMesh
+//             name="costuras"
+//             geometry={nodes.costuras.geometry}
+//             material={nodes.costuras.material}
+//             skeleton={nodes.costuras.skeleton}
+//           />
+         
+//           <skinnedMesh
+//             name="leather-piece"
+//             geometry={nodes['leather-piece'].geometry}            
+//             skeleton={nodes['leather-piece'].skeleton}
+//           >
+//              <meshStandardMaterial 
+//                map={textures.map}
+//                normalMap={textures.normalMap}
+//                roughness={0.95}
+//                roughnessMap={textures.roughnessMap}
+//                aoMapIntensity={1}
+//                aoMap={textures.aoMap}
+//             />
+
+//           </skinnedMesh>
+//           <primitive object={nodes['bc-1']} />
+//         </group>
+//         <mesh
+//           name="card-case"
+//           castShadow
+//           receiveShadow
+//           geometry={nodes['card-case'].geometry}
+//           material={nodes['card-case'].material}
+//         />
+//         <mesh
+//           name="lever"
+//           castShadow
+//           receiveShadow
+//           geometry={nodes.lever.geometry}
+//           material={nodes.lever.material}
+//           position={[-0.001, 0.958, 1.3]}
+//         />
+//         <mesh
+//           name="card-1"
+//           castShadow
+//           receiveShadow
+//           geometry={nodes['card-1'].geometry}
+//           position={[4.557, -4.607, -4.199]}
+//           rotation={[0, Math.PI / 2, 0]}
+//           scale={[1, 1, 1.6]}
+//         >
+
+//           {/* Material */}
+//           <meshStandardMaterial
+//           map={CardsTextures['card-2']}
+//             // color="#bb1f1f"
+//             roughness={0.4}
+//             metalness={0.2}
+//           />
+
+//         </mesh>
+//         <mesh
+//           name="card-2"
+//           castShadow
+//           receiveShadow
+//           geometry={nodes['card-2'].geometry}
+//           material={nodes['card-2'].material}
+//           position={[4.856, -4.63, -4.199]}
+//           rotation={[0, Math.PI / 2, 0]}
+//           scale={[1, 1, 1.6]}
+//         />
+//       </group>
+//     </group>

@@ -69,13 +69,13 @@ export const layoutConfig = {
     },
 
     animations: {
-      zoomOut: -7,
+      zoomOut: -7.5,
       zoomIn: 4,
       moveLeft: -1.4,
       rotationLeft: Math.PI / 2,
       rotationRight: Math.PI / 1.5,
-      moveDown: -1.4,
-      moveRight: 7,
+      moveDown: -2.5,
+      moveRight: 6,
       rotationRightPullOver: Math.PI / 2,
 
     }
@@ -95,13 +95,13 @@ export const layoutConfig = {
     },
 
     animations: {
-      zoomOut: -3,
+      zoomOut: -4,
       zoomIn: 2.5,
       moveLeft: -0.5,
       rotationLeft: Math.PI / 1.9,
       rotationRight: -(Math.PI * 2) / 1.3,
-      moveDown: -0.5,
-      moveRight: 14,
+      moveDown: -0.6,
+      moveRight: 12,
       rotationRightPullOver: (Math.PI * 2) / 4 ,
     }
   },
