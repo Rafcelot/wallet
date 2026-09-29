@@ -27,15 +27,20 @@
 
     /* 🔹 Botón hamburguesa */
     &__toggle {
-        display: none;
-
-        
+        display: none;        
 
         height: 48px;
         width: 48px;
         // background: rgb(0, 255, 64);
         border: none;
         cursor: pointer;
+
+        @media (max-width: 904px) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 8px;
+        }
         
     }
 
@@ -55,6 +60,10 @@
         font-size: font(s, size);
         line-height: font(s, line);
         font-weight: weight(semibold);
+
+        @media(max-width:904px) {
+            margin-right: 8px;
+        }
     }
 
     &__icons {
@@ -72,6 +81,10 @@
         margin-right: 24px;
         height: 20px;
         color: get-color(text, primary);
+
+        @media(max-width: 904px) {
+            display: none;
+        }
     }
 
     /* Desktop */
@@ -84,7 +97,11 @@
 
         font-family: font-family(display);
         font-size: font(s, size);
-        line-height: font(s, line);        
+        line-height: font(s, line);       
+        
+        @media(max-width: 904px) {
+            display: none;
+        }
     }
 
     &__link {
@@ -97,7 +114,7 @@
         padding: 10px 16px;
         height: 48px;
 
-        position: relative;
+        // position: relative;
 
         //TEXT
         font-family: font-family(display);
@@ -110,16 +127,43 @@
         color: get-color(emphasis, regular);
     }
 
-    // Este es el dropdown para movil 
-    &__dropdown{
-        // background-color: violet;
+    &__item {
+        display: flex;
+        align-items: center;
+        height: 80px;
+    }
 
-        display: none;
-        width: 100%;
+    // Este es el dropdown para movil 
+    &__dropdown-desktop{
+        background-color: white; 
+     
+        display: none; 
+        width: 100vw; 
+
+       
+        position: absolute;  
+        top: 112px;  
+        left: 0;  
+
+        padding: 24px;
+        
+    }    
+
+    
+    // Este es el dropdown para movil 
+    &__dropdown-mobile {
+        background-color: violet; 
+     
+        display: none; 
+        width: 100vw; 
+
+  
     }   
 
-    &__dropdown.active {
+
+    &__dropdown-mobile.active {
         display: block;
+        
     }
 
   
@@ -177,46 +221,9 @@
 
 
 @media (min-width: 905px) {
-    .navbar__item:hover .navbar__dropdown {
+    .navbar__item:hover .navbar__dropdown-desktop {
         display: block;
-        
-        position: absolute;
-        top: 100%;
-        left: 40px; 
-        
     }
-}
-
-
-
-@media (max-width: 904px) {
-
-    .navbar {
-
-        &__toggle {
-            // background-color: rgb(113, 86, 31);
-
-            display: flex;
-            justify-content: center;
-            align-items: center;   
-            
-            margin-left: 8px;
-        }
-
-        &__links-secondary {
-            display: none;
-        }
-
-        &__links-desktop {
-            display: none;
-        }
-
-        &__actions {
-            margin-right: 8px;
-        }
-
-    }
-
 }
 
 

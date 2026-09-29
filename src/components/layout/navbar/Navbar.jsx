@@ -29,7 +29,6 @@ export default function NavBar() {
 
 
 
-
     // ---------------------------
     // [FUNCTIONS]
     // ---------------------------
@@ -54,9 +53,6 @@ export default function NavBar() {
     }
 
 
-
-
-
     // ---------------------------
     // [JSX]
     // ---------------------------
@@ -67,9 +63,6 @@ export default function NavBar() {
 
             {/* DISCOUNT BAR */}
             <DiscountBar />
-
-
-
 
 
             {/* MAIN NAVBAR */}
@@ -85,8 +78,6 @@ export default function NavBar() {
 
 
 
-
-
                 {/* DESKTOP LINKS */}
                 <ul className="navbar__links-desktop">
 
@@ -94,22 +85,18 @@ export default function NavBar() {
                     <li className="navbar__item">
 
                         <a className="navbar__link">
-
                             <span>HOMBRE</span>
-
                             <ArrowDownIcon />
-
                         </a>
 
-                        <div className="navbar__dropdown">
+                        <div className="navbar__dropdown-desktop">
                             <ul>
-                                <li>Ropa</li>
+                                <li>Ropa Hombre</li>
                                 <li>Accesorios</li>
                             </ul>
                         </div>
 
                     </li>
-
 
 
 
@@ -125,7 +112,7 @@ export default function NavBar() {
 
                         </a>
 
-                        <div className="navbar__dropdown">
+                        <div className="navbar__dropdown-desktop">
                             <ul>
                                 <li>Ropa</li>
                                 <li>Accesorios</li>
@@ -133,9 +120,6 @@ export default function NavBar() {
                         </div>
 
                     </li>
-
-
-
 
 
                     {/* OFERTAS */}
@@ -150,15 +134,9 @@ export default function NavBar() {
                 </ul>
 
 
-
-
-
                 {/* LOGO */}                
                 <LogoIcon className="icon__logo" />
-              
-
-
-
+           
 
 
                 {/* ACTIONS */}
@@ -189,7 +167,9 @@ export default function NavBar() {
 
 
             {/* MOBILE MENU */}
-            <nav className={`navbar__menu ${isOpen ? "active" : ""}`}>
+            <nav className={`navbar__menu ${isOpen ? "active" : ""}`}> 
+
+                
 
                 {/* CLOSE BUTTON */}
                 <button
@@ -224,9 +204,8 @@ export default function NavBar() {
 
 
 
-
                         {/* DROPDOWN */}
-                        <div className={`navbar__dropdown ${openItem["hombre"] ? "active" : ""}`}>
+                        <div className={`navbar__dropdown-mobile ${openItem["hombre"] ? "active" : ""}`}>
 
                             <ul>
 
@@ -245,13 +224,10 @@ export default function NavBar() {
                                     </button>
 
 
-
-
-
                                     {/* LEVEL 2 DROPDOWN */}
-                                    <div className={`navbar__dropdown ${openItem["hombre-botas"] ? "active" : ""}`}>
+                                    <div className={`navbar__dropdown-mobile ${openItem["hombre-botas"] ? "active" : ""}`}>
 
-                                        <span></span>
+                                        <span>hola</span>
 
                                     </div>
 
@@ -287,10 +263,9 @@ export default function NavBar() {
 
 
                         {/* DROPDOWN */}
-                        <div className={`navbar__dropdown ${openItem["mujer"] ? "active" : ""}`}>
+                        <div className={`navbar__dropdown-mobile ${openItem["mujer"] ? "active" : ""}`}>
 
                             <ul>
-
                                 <li>
 
                                     {/* LEVEL 2 */}
@@ -310,14 +285,13 @@ export default function NavBar() {
 
 
                                     {/* LEVEL 2 DROPDOWN */}
-                                    <div className={`navbar__dropdown ${openItem["mujer-botas"] ? "active" : ""}`}>
+                                    <div className={`navbar__dropdown-mobile ${openItem["mujer-botas"] ? "active" : ""}`}>
 
-                                        <span></span>
+                                        <span>holaaa</span>
 
                                     </div>
 
                                 </li>
-
                             </ul>
 
                         </div>
