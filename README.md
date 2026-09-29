@@ -45,6 +45,6 @@ The visual direction focuses on **minimalism, product presentation, and interact
 
 ## Live Project
 
-[View live project](#)
+[View live project](https://wallet-three-omega.vercel.app/)
 
 
