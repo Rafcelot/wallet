@@ -47,6 +47,4 @@ The visual direction focuses on **minimalism, product presentation, and interact
 
 [View live project](#)
 
-## Repository
 
-[View source code](#)
